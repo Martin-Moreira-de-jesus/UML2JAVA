@@ -3,7 +3,8 @@ import org.json.JSONObject;
 
 public class JSONDB {
     private String name;
-    private JSONArray database = new JSONArray();
+    public JSONArray db = new JSONArray();
+    public static JSONDB DATABASE;
 
     private JSONArray getAllClasses(JSONArray classes) {
         JSONArray umlClasses = new JSONArray(); // return variable with all the UMLClasses
@@ -47,21 +48,21 @@ public class JSONDB {
             if (umlClass.has("ownedElements")) {
                 JSONArray associations = umlClass.getJSONArray("ownedElements");
                 for (Object association : associations) {
-                    this.database.put((JSONObject) association);
+                    this.db.put((JSONObject) association);
                 }
             }
             umlClass.remove("ownedElements");
         }
-        this.database.putAll(classes);
+        this.db.putAll(classes);
     }
 
-    public JSONArray getDatabase() {
-        return database;
+    public  JSONArray getDatabase() {
+        return db;
     }
 
     public JSONArray getAllLinks() {
         JSONArray links = new JSONArray();
-        for (Object dbObject : database) {
+        for (Object dbObject : db) {
             if (!((JSONObject) dbObject).getString("_type").equals("UMLClass")) {
                  links.put((JSONObject) dbObject);
             }
@@ -70,7 +71,7 @@ public class JSONDB {
     }
 
     public JSONObject getById(String id) {
-        for (Object object : database) {
+        for (Object object : db) {
             if (((JSONObject) object).getString("_id").equals(id)) {
                 return (JSONObject) object;
             }
@@ -80,11 +81,15 @@ public class JSONDB {
 
     public JSONArray getByType(String type) {
         JSONArray jsonArray = new JSONArray();
-        for (Object object : database) {
+        for (Object object : db) {
             if (((JSONObject) object).getString("_id").equals(type)) {
                 jsonArray.put((JSONObject) object);
             }
         }
         return jsonArray;
+    }
+
+    public void remove(int i) {
+        db.remove(i);
     }
 }
