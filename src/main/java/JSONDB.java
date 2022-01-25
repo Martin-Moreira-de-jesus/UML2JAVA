@@ -1,6 +1,8 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.crypto.Data;
+
 public class JSONDB {
     private String name;
     public JSONArray db = new JSONArray();
@@ -21,34 +23,30 @@ public class JSONDB {
                     }
                     umlClasses.putAll(umlObject.getJSONArray("ownedElements"));
                 } else {
+                    umlObject.put("_package", "null");
                     umlClasses.put(umlObject);
                 }
             }
         }
-        return classes;
+        return umlClasses;
     }
 
     public JSONDB(JSONObject jsonObject) {
         JSONArray classes = new JSONArray();
 
         JSONArray models = jsonObject.getJSONArray("ownedElements");
-        for (int i = 0; i < models.length(); ++i) {
 
-            JSONArray modelContents = models.getJSONObject(i).getJSONArray("ownedElements");
-            for (int j = 0; j < modelContents.length(); ++j) {
-                JSONObject content = modelContents.getJSONObject(j);
-                if (content.getString("_type").matches("UMLClass|UMLPackage")) {
-                    classes.put(content);
-                }
-            }
+        for (int i = 0; i < models.length(); i++) {
+            classes = this.getAllClasses(models.getJSONObject(i).getJSONArray("ownedElements"));
         }
 
+        // Separates associations from classes
         for (int i = 0; i < classes.length(); ++i) {
             JSONObject umlClass = classes.getJSONObject(i);
             if (umlClass.has("ownedElements")) {
                 JSONArray associations = umlClass.getJSONArray("ownedElements");
                 for (Object association : associations) {
-                    this.db.put((JSONObject) association);
+                    classes.put((JSONObject) association);
                 }
             }
             umlClass.remove("ownedElements");
@@ -89,7 +87,23 @@ public class JSONDB {
         return jsonArray;
     }
 
-    public void remove(int i) {
-        db.remove(i);
+    public void remove(JSONObject object) {
+        for (int i = 0; i < this.db.length(); i++) {
+            if (this.db.getJSONObject(i) == object) {
+                this.db.remove(i);
+            }
+        }
+    }
+
+    public JSONArray fetchClasses() {
+        JSONArray result = new JSONArray();
+
+        for (int i = 0; i < this.db.length(); ++i) {
+            if (this.db.getJSONObject(i).getString("_type").matches("UMLClass|UMLInterface")) {
+                result.put(this.db.getJSONObject(i));
+            }
+        }
+
+        return result;
     }
 }
