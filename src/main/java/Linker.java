@@ -6,6 +6,7 @@ import java.util.Locale;
 public class Linker {
     public void link() {
         JSONArray links = JSONDB.DATABASE.getAllLinks();
+
         for (int i = 0; i < links.length(); ++i) {
             JSONObject link = (JSONObject) links.get(i);
             JSONObject source;
@@ -26,7 +27,7 @@ public class Linker {
                 case "UMLAssociation" -> generateAssociationRelationship(source, target);
             }
 
-            JSONDB.DATABASE.remove(i);
+            JSONDB.DATABASE.remove(link);
         }
     }
 
