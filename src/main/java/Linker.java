@@ -20,18 +20,10 @@ public class Linker {
             String linkType = link.getString("_type");
 
             switch (linkType) {
-                case "UMLGeneralization":
-                    generateGeneralizationRelationship(source, target);
-                    break;
-                case "UMLDependency":
-                    generateDependencyRelationship(source, target, link);
-                    break;
-                case "UMLInterfaceRealization":
-                    generateInterfaceRealRelationship(source, target);
-                    break;
-                case "UMLAssociation":
-                    generateAssociationRelationship(source, target);
-                    break;
+                case "UMLGeneralization" -> generateGeneralizationRelationship(source, target);
+                case "UMLDependency" -> generateDependencyRelationship(source, target, link);
+                case "UMLInterfaceRealization" -> generateInterfaceRealRelationship(source, target);
+                case "UMLAssociation" -> generateAssociationRelationship(source, target);
             }
 
             JSONDB.DATABASE.remove(i);
