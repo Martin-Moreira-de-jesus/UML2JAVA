@@ -95,15 +95,17 @@ public class Linker {
             source.put("operations", new JSONArray());
         }
 
-        JSONArray targetAbstractOps = target.getJSONArray("operations"); // abstract operations of the mother
-        for (int i = 0; i < targetAbstractOps.length(); ++i) {
-            if (targetAbstractOps.getJSONObject(i).has("isAbstract")) {
-                source.getJSONArray("operations").put(targetAbstractOps.getJSONObject(i));
+        JSONArray targetOperations = target.getJSONArray("operations"); // abstract operations of the mother
+        for (int i = 0; i < targetOperations.length(); ++i) {
+            if (targetOperations.getJSONObject(i).has("isAbstract")) {
+                source.getJSONArray("operations").put(targetOperations.getJSONObject(i));
             }
         }
     }
 
     private void generateInterfaceRealRelationship(JSONObject source, JSONObject target) {
+        System.out.println(source);
+        System.out.println(target);
         JSONObject interfaceReal = new JSONObject();
         if (!source.has("interfacesRealized")) {
             source.put("interfacesRealized", new JSONArray());
@@ -117,8 +119,9 @@ public class Linker {
         if (!source.has("operations")) {
             source.put("operations", new JSONArray());
         }
-
-        source.getJSONArray("operations").putAll(target.getJSONArray("operations"));
+        if (target.has("operations")) {
+            source.getJSONArray("operations").putAll(target.getJSONArray("operations"));
+        }
     }
 
     private void generateDependencyRelationship(JSONObject source, JSONObject target, JSONObject dependency) {

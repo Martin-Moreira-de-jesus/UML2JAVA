@@ -2,14 +2,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Objects;
 
 public class Translator {
-    public final String projectPath = "C:\\Users\\marti\\IdeaProjects\\UML2JAVA";
-
     public Translator(JSONObject umlProject) throws IOException {
         JSONDB.DATABASE = new JSONDB(umlProject);
 
@@ -35,37 +31,70 @@ public class Translator {
     }
 
     public File makeDirsAndFile(JSONObject currentClass) throws IOException {
-        String filePath = "\\output\\src\\";
+        String filePath = System.getProperty("user.dir") + "/GeneratedProjet/src/";
         if (currentClass.getString("_package").equals("null")) {
-            filePath += "Main\\";
+            filePath += "Main/";
         } else {
-            String[] dirs = currentClass.getString("_package").split("\\.");
+            String[] dirs = currentClass.getString("_package").split("/.");
 
             for (int j = 0; j < dirs.length; j++) {
-                filePath += dirs[j] + "\\";
+                filePath += dirs[j] + "/";
             }
         }
 
-        File directory = new File(projectPath + filePath);
+        File directory = new File(filePath);
 
         if (!directory.exists()) {
             if (directory.mkdirs()) {
                 System.out.println("Created directories: " + directory.getAbsolutePath());
             } else {
-                System.out.println("Couldn't create directories");
+                System.out.println("Couldn't create directories: " + directory.getAbsolutePath());
             }
         }
 
         filePath += currentClass.getString("name") + ".java";
 
-        File classFile = new File(projectPath + filePath);
+        File classFile = new File(filePath);
         if (classFile.createNewFile()) {
             System.out.println("File created: " + classFile.getName());
         } else {
-            System.out.println("upsie");
+            System.out.println("Couldn't create file: " + classFile.getName());
         }
 
         return classFile;
+    }
+
+    private String addSettersGetters(JSONArray attributes) {
+        String result = "";
+
+        for (int i = 0; i < attributes.length(); i++) {
+            JSONObject attribute = attributes.getJSONObject(i);
+
+            System.out.println(attribute);
+
+            if (!attribute.has("visibility") || attribute.getString("visibility").equals("public")) continue;
+
+            result += "\tpublic "
+                    + attribute.getString("type") + " "
+                    + "get" + Character.toUpperCase(attribute.getString("name").charAt(0)) + attribute.getString("name").substring(1)
+                    + "() {\n"
+                    + "\t\treturn " + attribute.getString("name")
+                    + ";\n\t}\n\n";
+
+            if (!attribute.has("isReadOnly")) {
+                result += "\tpublic "
+                        + "void "
+                        + "set" + Character.toUpperCase(attribute.getString("name").charAt(0))
+                                + attribute.getString("name").substring(1)
+                        + "("
+                        + attribute.getString("type") + " " + attribute.getString("name")
+                        + ") {\n"
+                        + "\t\treturn this." + attribute.getString("name")
+                        + ";\n\t}\n\n";
+            }
+        }
+
+        return result;
     }
 
     private String translateAttributes(JSONArray attributes) {
@@ -73,6 +102,7 @@ public class Translator {
         for (int i = 0; i < attributes.length(); i++) {
             JSONObject attribute = attributes.getJSONObject(i);
             result += "\t" + (attribute.has("visibility") ? attribute.getString("visibility") : "public") + " "
+                    + (attribute.has("isStatic") ? "static " : "")
                     + attribute.getString("type") + " "
                     + attribute.getString("name") + ";\n";
         }
@@ -81,6 +111,7 @@ public class Translator {
     }
 
     private String translateParameters(JSONArray parameters) {
+        if (parameters.length() == 0) return "";
         String result = "";
         for (int j = 0; j < parameters.length(); j++) {
             JSONObject parameter = parameters.getJSONObject(j);
@@ -101,13 +132,15 @@ public class Translator {
             String operationType = getOperationType(operation);
 
             result += "\t" + (operation.has("visibility") ? operation.getString("visibility") : "public") + " "
+                    + (operation.has("isAbstract") ? "abstract " : "")
                     + operationType + " "
                     + operation.getString("name") + "(";
             if (operation.has("parameters")) {
                 result += translateParameters(operation.getJSONArray("parameters"));
             }
-        }
 
+            result += ") {\n\t\t//TODO\n\t}\n\n";
+        }
         return result;
     }
 
@@ -128,7 +161,10 @@ public class Translator {
 
             if (umlClass.has("operations")) {
                 result += translateOperations(umlClass.getJSONArray("operations"));
-                result += ") {\n\t\t//TODO\n\t}\n";
+            }
+
+            if (umlClass.has("attributes")) {
+                result += addSettersGetters(umlClass.getJSONArray("attributes"));
             }
 
             return result + "}";
@@ -140,10 +176,11 @@ public class Translator {
     private String getOperationType(JSONObject operation) {
         if (operation.has("parameters")) {
             JSONArray parameters = operation.getJSONArray("parameters");
-            for (int i = 0; i < operation.length(); i++) {
+            for (int i = 0; i < parameters.length(); i++) {
                 if (parameters.getJSONObject(i).has("direction")) {
+                    String type = parameters.getJSONObject(i).getString("type");
                     parameters.remove(i);
-                    return parameters.getJSONObject(i).getString("type");
+                    return type;
                 }
             }
         }
