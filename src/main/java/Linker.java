@@ -72,11 +72,11 @@ public class Linker {
     }
 
     private void generateAssociationRelationship(JSONObject end1, JSONObject end2) {
-        if (!end1.has("navigable")) {
+        if (!end1.has("navigable") && end1.has("name") && !end1.getString("name").equals("")) {
             addAttribute(end1, end2);
         }
 
-        if (!end2.has("navigable")) {
+        if (!end2.has("navigable") && end2.has("name") && !end2.getString("name").equals("")) {
             addAttribute(end2, end1);
         }
     }
@@ -120,7 +120,13 @@ public class Linker {
             source.put("operations", new JSONArray());
         }
         if (target.has("operations")) {
-            source.getJSONArray("operations").putAll(target.getJSONArray("operations"));
+            JSONArray operations = new JSONArray(target.getJSONArray("operations"));
+
+            for (int i = 0; i < operations.length(); i++) {
+                operations.getJSONObject(i).put("keyword", "Override");
+            }
+
+            source.getJSONArray("operations").putAll(operations);
         }
     }
 

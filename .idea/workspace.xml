@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="translates from json to jave&#10;need to implement certain keywords :&#10;- static&#10;- final&#10;- etc">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="merge">
+      <change afterPath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UML2JAVA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UML2JAVA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/class_static_attributes.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/class_static_attributes.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JSONDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Linker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Translator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/JSONDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JSONDB.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Linker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Linker.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Translator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Translator.class" afterDir="false" />
@@ -63,10 +64,16 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\marti\IdeaProjects\UML2JAVA\UMLTestFiles" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="UML2JAVA" />
+      <option name="PROGRAM_PARAMETERS" value="-g -s" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -89,6 +96,7 @@
       <workItem from="1643097577340" duration="8935000" />
       <workItem from="1643202191006" duration="2374000" />
       <workItem from="1643204591586" duration="5972000" />
+      <workItem from="1643616816916" duration="5047000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
