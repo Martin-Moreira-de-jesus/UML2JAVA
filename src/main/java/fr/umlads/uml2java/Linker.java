@@ -1,3 +1,5 @@
+package fr.umlads.uml2java;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -53,9 +55,14 @@ public class Linker {
             name = name.substring(0, 1).toLowerCase(Locale.ROOT) + name.substring(1);
             attribute.put("name", name);
         }
+        String type = JSONDB.DATABASE.getById(end.getJSONObject("reference").
+                getString("$ref")).getString("name");
 
-        attribute.put("type", JSONDB.DATABASE.getById(end.getJSONObject("reference").
-                getString("$ref")).getString("name"));
+        if (attribute.getString("multiplicity").contains("*") || attribute.getString("multiplicity").matches("[2-9]")) {
+            type += "[]";
+        }
+
+        attribute.put("type", type);
 
         return attribute;
     }

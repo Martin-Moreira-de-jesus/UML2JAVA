@@ -1,7 +1,7 @@
+package fr.umlads.uml2java;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import javax.xml.crypto.Data;
 
 public class JSONDB {
     private String name;

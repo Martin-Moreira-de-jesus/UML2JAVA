@@ -1,3 +1,5 @@
+package fr.umlads.uml2java;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,9 +35,9 @@ public class Translator {
     }
 
     public File makeDirsAndFile(JSONObject currentClass) throws IOException {
-        String filePath = System.getProperty("user.dir") + "/GeneratedProjet/src/";
+        String filePath = (Main.target.equals("") ? System.getProperty("user.dir") : Main.target)  + "/GeneratedProjet/src/";
         if (currentClass.getString("_package").equals("null")) {
-            filePath += "Main/";
+            filePath += "fr.umlads.uml2java.Main/";
         } else {
             String[] dirs = currentClass.getString("_package").split("/.");
 
@@ -102,6 +104,7 @@ public class Translator {
         String result = "";
         for (int i = 0; i < attributes.length(); i++) {
             JSONObject attribute = attributes.getJSONObject(i);
+
             result += "\t" + (attribute.has("visibility") ? attribute.getString("visibility") : "public") + " "
                     + (attribute.has("isStatic") && (Boolean) attribute.get("isStatic") ? "static " : "")
                     + attribute.getString("type") + " "

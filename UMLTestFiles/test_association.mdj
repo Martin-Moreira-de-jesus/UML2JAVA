@@ -17,7 +17,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Main",
+					"name": "fr.umlads.uml2java.Main",
 					"defaultDiagram": true,
 					"ownedViews": [
 						{
@@ -622,9 +622,9 @@
 										"$ref": "AAAAAAF+kEsWx7hpVy8="
 									},
 									"font": "Arial;13;0",
-									"left": 333,
+									"left": 327,
 									"top": 317,
-									"width": 7.22998046875,
+									"width": 19.5126953125,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 25,
@@ -632,7 +632,7 @@
 										"$ref": "AAAAAAF+kEsWyLhskno="
 									},
 									"edgePosition": 2,
-									"text": "1"
+									"text": "4"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -685,9 +685,9 @@
 										"$ref": "AAAAAAF+kEsWx7hqMAQ="
 									},
 									"font": "Arial;13;0",
-									"left": 239,
+									"left": 233,
 									"top": 323,
-									"width": 7.22998046875,
+									"width": 19.5126953125,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -853,7 +853,7 @@
 											"$ref": "AAAAAAF+kEMR43geLkk="
 										},
 										"visibility": "private",
-										"multiplicity": "1"
+										"multiplicity": "4"
 									},
 									"end2": {
 										"_type": "UMLAssociationEnd",

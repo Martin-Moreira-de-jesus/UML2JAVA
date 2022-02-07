@@ -5,22 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="merge">
-      <change afterPath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UML2JAVA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UML2JAVA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/2classes_association.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/2classes_association.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/2classes_directed_association.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/2classes_directed_association.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/2classes_generalization_complex.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/2classes_generalization_complex.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/3classes_dependencies.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/3classes_dependencies.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UMLTestFiles/class_static_attributes.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/class_static_attributes.mdj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JSONDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Linker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Translator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/JSONDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JSONDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Linker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Linker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Translator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Translator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/test_association.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/test_association.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/JSONDB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Linker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Translator.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -62,6 +77,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -69,11 +87,19 @@
       <recent name="C:\Users\marti\IdeaProjects\UML2JAVA\UMLTestFiles" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn install:help" />
+      <command value="mvn package" />
+      <command value="mvn clean install" />
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Main" />
       <module name="UML2JAVA" />
-      <option name="PROGRAM_PARAMETERS" value="-g -s" />
+      <option name="PROGRAM_PARAMETERS" value="UMLTestFiles/test_association.mdj" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -97,6 +123,7 @@
       <workItem from="1643202191006" duration="2374000" />
       <workItem from="1643204591586" duration="5972000" />
       <workItem from="1643616816916" duration="5047000" />
+      <workItem from="1644219930230" duration="6668000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
