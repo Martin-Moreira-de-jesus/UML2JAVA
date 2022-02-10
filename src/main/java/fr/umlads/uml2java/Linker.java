@@ -35,6 +35,7 @@ public class Linker {
 
     private JSONObject generateAttributeFromEnd(JSONObject end) {
         JSONObject attribute = new JSONObject();
+
         if (end.has("visibility")) {
             attribute.put("visibility", end.getString("visibility"));
         } else {
@@ -67,25 +68,49 @@ public class Linker {
         return attribute;
     }
 
-    private void addAttribute(JSONObject end, JSONObject otherEnd) {
-        JSONObject attribute = generateAttributeFromEnd(end);
-        JSONObject target = JSONDB.DATABASE.getById(otherEnd.getJSONObject("reference").getString("$ref"));
+    private void addAttribute(JSONObject end1, JSONObject end2) {
+        String end1ID = end1.getJSONObject("reference").getString("$ref");
+        String end2ID = end2.getJSONObject("reference").getString("$ref");
+
+        boolean end1Navigable = end1.has("name") && (!end1.has("navigable") || !end1.getBoolean("navigable"));
+        boolean end2Navigable = end2.has("name") && (!end2.has("navigable") || !end2.getBoolean("navigable"));
+
+        JSONObject source = JSONDB.DATABASE.getById(end1ID);
+        JSONObject target = JSONDB.DATABASE.getById(end2ID);
 
         if (!target.has("attributes")) {
             target.put("attributes", new JSONArray());
         }
 
-        target.getJSONArray("attributes").put(attribute);
+        if (!source.has("attributes")) {
+            source.put("attributes", new JSONArray());
+        }
+
+        JSONObject targetAttribute = null;
+        JSONObject sourceAttribute = null;
+
+        if (source.getString("_id").equals(end1ID)) {
+            if (end1Navigable) {
+                targetAttribute = generateAttributeFromEnd(end1);
+            }
+            if (end2Navigable) {
+                sourceAttribute = generateAttributeFromEnd(end2);
+            }
+        } else {
+            if (end1Navigable) {
+                sourceAttribute = generateAttributeFromEnd(end2);
+            }
+            if (end2Navigable) {
+                targetAttribute = generateAttributeFromEnd(end1);
+            }
+        }
+
+        if (targetAttribute != null) target.getJSONArray("attributes").put(targetAttribute);
+        if (sourceAttribute != null) source.getJSONArray("attributes").put(sourceAttribute);
     }
 
     private void generateAssociationRelationship(JSONObject end1, JSONObject end2) {
-        if (!end1.has("navigable") && end1.has("name") && !end1.getString("name").equals("")) {
-            addAttribute(end1, end2);
-        }
-
-        if (!end2.has("navigable") && end2.has("name") && !end2.getString("name").equals("")) {
-            addAttribute(end2, end1);
-        }
+        addAttribute(end1, end2);
     }
 
     private void generateGeneralizationRelationship(JSONObject source, JSONObject target) {
@@ -111,8 +136,6 @@ public class Linker {
     }
 
     private void generateInterfaceRealRelationship(JSONObject source, JSONObject target) {
-        System.out.println(source);
-        System.out.println(target);
         JSONObject interfaceReal = new JSONObject();
         if (!source.has("interfacesRealized")) {
             source.put("interfacesRealized", new JSONArray());
@@ -127,7 +150,7 @@ public class Linker {
             source.put("operations", new JSONArray());
         }
         if (target.has("operations")) {
-            JSONArray operations = new JSONArray(target.getJSONArray("operations"));
+            JSONArray operations = new JSONArray(target.getJSONArray("operations").toString());
 
             for (int i = 0; i < operations.length(); i++) {
                 operations.getJSONObject(i).put("keyword", "Override");
