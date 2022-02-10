@@ -85,7 +85,8 @@ public class Translator {
 
         filePath += currentClass.getString("name");
 
-        filePath = filePath.substring(0, filePath.indexOf("<"));
+        if (filePath.contains("<"))
+            filePath = filePath.substring(0, filePath.indexOf("<"));
 
         filePath += ".java";
 

@@ -72,8 +72,8 @@ public class Linker {
         String end1ID = end1.getJSONObject("reference").getString("$ref");
         String end2ID = end2.getJSONObject("reference").getString("$ref");
 
-        boolean end1Navigable = end1.has("name") && (!end1.has("navigable") || !end1.getBoolean("navigable"));
-        boolean end2Navigable = end2.has("name") && (!end2.has("navigable") || !end2.getBoolean("navigable"));
+        boolean end1Navigable = end1.has("name") && !end1.getString("name").equals("") && (!end1.has("navigable") || !end1.getBoolean("navigable"));
+        boolean end2Navigable = end2.has("name") && !end2.getString("name").equals("") && (!end2.has("navigable") || !end2.getBoolean("navigable"));
 
         JSONObject source = JSONDB.DATABASE.getById(end1ID);
         JSONObject target = JSONDB.DATABASE.getById(end2ID);
@@ -97,10 +97,10 @@ public class Linker {
                 sourceAttribute = generateAttributeFromEnd(end2);
             }
         } else {
-            if (end1Navigable) {
+            if (end2Navigable) {
                 sourceAttribute = generateAttributeFromEnd(end2);
             }
-            if (end2Navigable) {
+            if (end1Navigable) {
                 targetAttribute = generateAttributeFromEnd(end1);
             }
         }

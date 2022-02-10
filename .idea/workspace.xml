@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="multiplicities &gt; 1 converted to java arrays and made an executable (god bless)">
+    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="minor change">
       <change afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/uml2java.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UMLTestFiles/1class_1interface_implementation.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/1class_1interface_implementation.mdj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UMLTestFiles/2classes_association.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/2classes_association.mdj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +86,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Main" />
       <module name="UML2JAVA" />
-      <option name="PROGRAM_PARAMETERS" value="UMLTestFiles/template_param.mdj" />
+      <option name="PROGRAM_PARAMETERS" value="UMLTestFiles/associative_class.mdj" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -115,7 +112,7 @@
       <workItem from="1643616816916" duration="5047000" />
       <workItem from="1644219930230" duration="6746000" />
       <workItem from="1644415957922" duration="962000" />
-      <workItem from="1644496284920" duration="7252000" />
+      <workItem from="1644496284920" duration="9760000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
@@ -145,7 +142,49 @@
       <option name="project" value="LOCAL" />
       <updated>1644230949619</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="changed way of interpreting associations">
+      <created>1644505761584</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1644505761584</updated>
+    </task>
+    <task id="LOCAL-00006" summary="refactoring">
+      <created>1644505775901</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1644505775901</updated>
+    </task>
+    <task id="LOCAL-00007" summary="now preprocessing certain data before processing it&#10;for now only preprocessing template parameters for generics">
+      <created>1644505860012</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1644505860012</updated>
+    </task>
+    <task id="LOCAL-00008" summary="modified test files">
+      <created>1644505872583</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1644505872583</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added test file">
+      <created>1644505880946</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1644505880946</updated>
+    </task>
+    <task id="LOCAL-00010" summary="minor change">
+      <created>1644505902883</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1644505902883</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,7 +218,13 @@
     <MESSAGE value="rollback" />
     <MESSAGE value="translates from json to jave&#10;need to implement certain keywords :&#10;- static&#10;- final&#10;- etc" />
     <MESSAGE value="multiplicities &gt; 1 converted to java arrays and made an executable (god bless)" />
-    <option name="LAST_COMMIT_MESSAGE" value="multiplicities &gt; 1 converted to java arrays and made an executable (god bless)" />
+    <MESSAGE value="changed way of interpreting associations" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="now preprocessing certain data before processing it&#10;for now only preprocessing template parameters for generics" />
+    <MESSAGE value="modified test files" />
+    <MESSAGE value="added test file" />
+    <MESSAGE value="minor change" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor change" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
