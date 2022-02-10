@@ -23,6 +23,8 @@ public class Translator {
     public void translate() throws IOException {
         JSONArray classes = JSONDB.DATABASE.fetchClasses();
 
+        preProcess(classes);
+
         for (int i = 0; i < classes.length(); i++) {
             JSONObject currentClass = classes.getJSONObject(i);
 
@@ -34,8 +36,33 @@ public class Translator {
         }
     }
 
+    private void preProcess(JSONArray classes) {
+        preProcessTemplateParameters(classes);
+    }
+
+    private void preProcessTemplateParameters(JSONArray classes) {
+        classes.forEach(item -> {
+            JSONObject umlClass = (JSONObject) item;
+            if (umlClass.has("templateParameters")) {
+                String className = umlClass.getString("name") + "<";
+
+                JSONArray templateParameters = umlClass.getJSONArray("templateParameters");
+                for (int i = 0; i < templateParameters.length(); i++) {
+                    className += templateParameters.getJSONObject(i).getString("name") + ", ";
+                }
+
+                className = className.substring(0, className.length() - 2);
+
+                className += ">";
+
+                umlClass.remove("name");
+                umlClass.put("name", className);
+            }
+        });
+    }
+
     public File makeDirsAndFile(JSONObject currentClass) throws IOException {
-        String filePath = (Main.target.equals("") ? System.getProperty("user.dir") : Main.target)  + "/GeneratedProjet/src/";
+        String filePath = (Main.target.equals("") ? System.getProperty("user.dir") : Main.target) + "/GeneratedProjet/src/";
         if (currentClass.getString("_package").equals("null")) {
             filePath += "fr.umlads.uml2java.Main/";
         } else {
@@ -56,9 +83,14 @@ public class Translator {
             }
         }
 
-        filePath += currentClass.getString("name") + ".java";
+        filePath += currentClass.getString("name");
+
+        filePath = filePath.substring(0, filePath.indexOf("<"));
+
+        filePath += ".java";
 
         File classFile = new File(filePath);
+
         if (classFile.createNewFile()) {
             System.out.println("File created: " + classFile.getName());
         } else {
