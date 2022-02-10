@@ -14,6 +14,7 @@ public class Main {
             System.out.println("Usage : " + "uml2java <source>");
             System.exit(1);
         }
+
         String source = args[0];
 
         if (args.length > 1) {
