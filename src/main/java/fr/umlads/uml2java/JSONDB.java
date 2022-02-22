@@ -31,6 +31,16 @@ public class JSONDB {
         return umlClasses;
     }
 
+    public JSONObject getObjectWith(String key, String value) {
+        for (Object object : this.db) {
+            JSONObject jsonObject = (JSONObject) object;
+            if (jsonObject.has(key) && jsonObject.getString(key).equals(value)) {
+                return jsonObject;
+            }
+        }
+        return null;
+    }
+
     public JSONDB(JSONObject jsonObject) {
         JSONArray classes = new JSONArray();
 
@@ -54,7 +64,7 @@ public class JSONDB {
         this.db.putAll(classes);
     }
 
-    public  JSONArray getDatabase() {
+    public JSONArray getDatabase() {
         return db;
     }
 
@@ -62,7 +72,7 @@ public class JSONDB {
         JSONArray links = new JSONArray();
         for (Object dbObject : db) {
             if (!((JSONObject) dbObject).getString("_type").matches("UMLClass|UMLInterface")) {
-                 links.put((JSONObject) dbObject);
+                links.put((JSONObject) dbObject);
             }
         }
         return links;

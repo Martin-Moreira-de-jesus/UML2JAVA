@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="minor change">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/uml2java.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/Diagram.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UMLTestFiles/associative_class.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/associative_class.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/UML2JAVA-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/UML2JAVA-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +71,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.jsonOptions" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -113,6 +117,7 @@
       <workItem from="1644219930230" duration="6746000" />
       <workItem from="1644415957922" duration="962000" />
       <workItem from="1644496284920" duration="9760000" />
+      <workItem from="1645536848954" duration="4347000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
@@ -232,5 +237,9 @@
         <watch expression="classes" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

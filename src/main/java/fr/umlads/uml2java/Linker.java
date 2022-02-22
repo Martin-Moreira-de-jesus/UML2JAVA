@@ -3,6 +3,7 @@ package fr.umlads.uml2java;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Linker {
@@ -11,22 +12,27 @@ public class Linker {
 
         for (int i = 0; i < links.length(); ++i) {
             JSONObject link = (JSONObject) links.get(i);
-            JSONObject source;
-            JSONObject target;
-            if (!link.getString("_type").equals("UMLAssociation")) {
+            JSONObject source = null;
+            JSONObject target = null;
+
+            if (!link.getString("_type").matches("UMLAssociation|UMLAssociationClassLink")) {
                 source = JSONDB.DATABASE.getById(link.getJSONObject("source").getString("$ref"));
                 target = JSONDB.DATABASE.getById(link.getJSONObject("target").getString("$ref"));
-            } else {
-                source = link.getJSONObject("end1");
-                target = link.getJSONObject("end2");
             }
+
             String linkType = link.getString("_type");
 
             switch (linkType) {
-                case "UMLGeneralization" -> generateGeneralizationRelationship(source, target);
+                case "UMLGeneralization" -> {
+                    assert source != null;
+                    generateGeneralizationRelationship(source, target);
+                }
                 case "UMLDependency" -> generateDependencyRelationship(source, target, link);
-                case "UMLInterfaceRealization" -> generateInterfaceRealRelationship(source, target);
-                case "UMLAssociation" -> generateAssociationRelationship(source, target);
+                case "UMLInterfaceRealization" -> {
+                    assert source != null;
+                    generateInterfaceRealRelationship(source, target);
+                }
+                case "UMLAssociation" -> generateAssociationRelationship(link);
             }
 
             JSONDB.DATABASE.remove(link);
@@ -109,8 +115,32 @@ public class Linker {
         if (sourceAttribute != null) source.getJSONArray("attributes").put(sourceAttribute);
     }
 
-    private void generateAssociationRelationship(JSONObject end1, JSONObject end2) {
-        addAttribute(end1, end2);
+    private void generateAssociationRelationship(JSONObject link) {
+        JSONObject classLink = JSONDB.DATABASE.getObjectWith("_type", "UMLAssociationClassLink");
+        if (classLink != null
+                && classLink.getJSONObject("associationSide").getString("$ref").equals(link.getString("_id"))) {
+            addAttributeToAssociativeClass(link, classLink);
+        } else {
+            JSONObject end1 = link.getJSONObject("end1");
+            JSONObject end2 = link.getJSONObject("end2");
+            addAttribute(end1, end2);
+        }
+    }
+
+    private void addAttributeToAssociativeClass(JSONObject link, JSONObject classLink) {
+        JSONObject UMLClass = JSONDB.DATABASE.getObjectWith("_id", classLink.getJSONObject("classSide").getString("$ref"));
+        JSONObject end1 = link.getJSONObject("end1");
+        JSONObject end2 = link.getJSONObject("end2");
+
+        JSONObject attribute1 = generateAttributeFromEnd(end1);
+        JSONObject attribute2 = generateAttributeFromEnd(end2);
+
+        if (!UMLClass.has("attributes")) {
+            UMLClass.put("attributes", new JSONArray());
+        }
+
+        UMLClass.getJSONArray("attributes").put(attribute1);
+        UMLClass.getJSONArray("attributes").put(attribute2);
     }
 
     private void generateGeneralizationRelationship(JSONObject source, JSONObject target) {
