@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Translator {
     public boolean addGettersAndSetters = false;
@@ -38,6 +39,35 @@ public class Translator {
 
     private void preProcess(JSONArray classes) {
         preProcessTemplateParameters(classes);
+
+        preProcessAttributes(classes); // to chose other kinds of collection types
+    }
+
+    private void preProcessAttributes(JSONArray classes) {
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < classes.length(); i++) {
+            if (!classes.getJSONObject(i).has("attributes")) continue;
+            JSONArray attributes = classes.getJSONObject(i).getJSONArray("attributes");
+
+            for (int j = 0; j < attributes.length(); j++) {
+                JSONObject attribute = attributes.getJSONObject(j);
+
+                if (!attribute.getString("type").contains("[]")) continue;
+
+                System.out.print("The attribute <" + attribute.getString("name") + "> from the class <"
+                        + classes.getJSONObject(i).getString("name") + "> default type was put to <"
+                        + attribute.getString("type") + ">. Type new type (leave empty to keep default type):");
+
+                String type = scanner.nextLine();
+
+                if (type.equals("")) {
+                    continue;
+                }
+
+                attribute.put("type", type);
+            }
+        }
     }
 
     private void preProcessTemplateParameters(JSONArray classes) {
