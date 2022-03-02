@@ -8,6 +8,10 @@ public class JSONDB {
     public JSONArray db = new JSONArray();
     public static JSONDB DATABASE;
 
+    public static void init(JSONObject jsonObject) {
+        DATABASE = new JSONDB(jsonObject);
+    }
+
     private JSONArray getAllClasses(JSONArray classes) {
         JSONArray umlClasses = new JSONArray(); // return variable with all the UMLClasses
 
@@ -41,7 +45,7 @@ public class JSONDB {
         return null;
     }
 
-    public JSONDB(JSONObject jsonObject) {
+    private JSONDB(JSONObject jsonObject) {
         JSONArray classes = new JSONArray();
 
         JSONArray models = jsonObject.getJSONArray("ownedElements");

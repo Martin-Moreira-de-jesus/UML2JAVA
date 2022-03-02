@@ -22,11 +22,12 @@ public class Main {
         }
 
         try {
-            String filePath = System.getProperty("user.dir") + (source.charAt(0) == '/' ? "" : "/") + source;
+            // String filePath = System.getProperty("user.dir") + (source.charAt(0) == '/' ? "" : "/") + source;
             String jsonFile = new String(Files.readAllBytes(Paths.get(source)));
             JSONObject project = new JSONObject(jsonFile);
-            Translator translator = new Translator(project);
-            System.out.println(JSONDB.DATABASE.getDatabase());
+            JSONDB.init(project);
+            Translator translator = new Translator();
+            translator.translate();
         } catch (IOException e) {
             e.printStackTrace();
         }

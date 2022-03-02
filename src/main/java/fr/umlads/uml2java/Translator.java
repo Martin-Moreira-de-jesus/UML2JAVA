@@ -11,20 +11,14 @@ import java.util.Scanner;
 public class Translator {
     public boolean addGettersAndSetters = false;
 
-    public Translator(JSONObject umlProject) throws IOException {
-        JSONDB.DATABASE = new JSONDB(umlProject);
-
+    public void translate() throws IOException {
         Linker linker = new Linker();
 
         linker.link();
 
-        this.translate();
-    }
-
-    public void translate() throws IOException {
         JSONArray classes = JSONDB.DATABASE.fetchClasses();
 
-        preProcess(classes);
+        // preProcess(classes);
 
         for (int i = 0; i < classes.length(); i++) {
             JSONObject currentClass = classes.getJSONObject(i);
@@ -107,9 +101,9 @@ public class Translator {
 
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                System.out.println("Created directories: " + directory.getAbsolutePath());
+                //System.out.println("Created directories: " + directory.getAbsolutePath());
             } else {
-                System.out.println("Couldn't create directories: " + directory.getAbsolutePath());
+                //System.out.println("Couldn't create directories: " + directory.getAbsolutePath());
             }
         }
 
@@ -123,9 +117,9 @@ public class Translator {
         File classFile = new File(filePath);
 
         if (classFile.createNewFile()) {
-            System.out.println("File created: " + classFile.getName());
+            //System.out.println("File created: " + classFile.getName());
         } else {
-            System.out.println("Couldn't create file: " + classFile.getName());
+            //System.out.println("Couldn't create file: " + classFile.getName());
         }
 
         return classFile;
@@ -136,7 +130,7 @@ public class Translator {
 
         for (int i = 0; i < attributes.length(); i++) {
             JSONObject attribute = attributes.getJSONObject(i);
-            System.out.println(attribute);
+            //System.out.println(attribute);
 
             if (!attribute.has("visibility") || attribute.getString("visibility").equals("public")) continue;
 

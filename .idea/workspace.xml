@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="now translates associative classes">
+    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="benchmarking and fixed issues">
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/10classes_10associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/10classes_20associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_20associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_30associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_40associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_60associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/5classes_5associations.mdj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jsondb_benchmark_results.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Benchmark.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UML2JAVA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UML2JAVA.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UMLTestFiles/associative_class.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UMLTestFiles/associative_class.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +90,20 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Benchmark">
+    <configuration name="Benchmark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Benchmark" />
+      <module name="UML2JAVA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.umlads.uml2java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Main" />
       <module name="UML2JAVA" />
@@ -92,6 +114,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Benchmark" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -112,7 +135,9 @@
       <workItem from="1644219930230" duration="6746000" />
       <workItem from="1644415957922" duration="962000" />
       <workItem from="1644496284920" duration="9760000" />
-      <workItem from="1645536848954" duration="5814000" />
+      <workItem from="1645536848954" duration="6429000" />
+      <workItem from="1646230111665" duration="5811000" />
+      <workItem from="1646238540219" duration="1290000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
@@ -191,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645542286549</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="option to change array types">
+      <created>1645543699295</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1645543699295</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +264,9 @@
     <MESSAGE value="added test file" />
     <MESSAGE value="minor change" />
     <MESSAGE value="now translates associative classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="now translates associative classes" />
+    <MESSAGE value="option to change array types" />
+    <MESSAGE value="benchmarking and fixed issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="benchmarking and fixed issues" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
