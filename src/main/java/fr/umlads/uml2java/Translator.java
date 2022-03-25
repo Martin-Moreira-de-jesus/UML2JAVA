@@ -1,6 +1,7 @@
 package fr.umlads.uml2java;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -177,7 +178,12 @@ public class Translator {
         for (int j = 0; j < parameters.length(); j++) {
             JSONObject parameter = parameters.getJSONObject(j);
 
-            result += parameter.getString("type") + " " + parameter.getString("name") + ", ";
+            try {
+                result += parameter.getString("type");
+            } catch (JSONException e) {
+                result += JSONDB.DATABASE.getById(parameter.getJSONObject("type").getString("$ref")).getString("name");
+            }
+            result += " " + parameter.getString("name") + ", ";
         }
 
         result = result.substring(0, result.length() - 2);
@@ -206,7 +212,7 @@ public class Translator {
             }
 
             result += ")";
-            if (type.equals("UMLClass")) {
+            if (type.equals("class")) {
                 result += " {\n\t\t//TODO\n\t}";
             } else {
                 result += ";";
@@ -263,7 +269,14 @@ public class Translator {
             JSONArray parameters = operation.getJSONArray("parameters");
             for (int i = 0; i < parameters.length(); i++) {
                 if (parameters.getJSONObject(i).has("direction")) {
-                    String type = parameters.getJSONObject(i).getString("type");
+                    String type;
+                    try {
+                        type = parameters.getJSONObject(i).getString("type");
+                    } catch (JSONException e) {
+                        String reference = parameters.getJSONObject(i).getJSONObject("type").getString("$ref");
+                        type = JSONDB.DATABASE.getById(reference).getString("name");
+                    }
+
                     parameters.remove(i);
                     return type;
                 }

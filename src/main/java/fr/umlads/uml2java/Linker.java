@@ -65,7 +65,9 @@ public class Linker {
         String type = JSONDB.DATABASE.getById(end.getJSONObject("reference").
                 getString("$ref")).getString("name");
 
-        if (attribute.getString("multiplicity").contains("*") || attribute.getString("multiplicity").matches("[2-9]")) {
+        if (attribute.getString("multiplicity").contains("*") || attribute.getString("multiplicity").contains("n")
+                || attribute.getString("multiplicity").matches("[2-9]") || (attribute.has("aggregation")
+                && attribute.getString("aggregation").matches("shared|composed"))) {
             type += "[]";
         }
 
@@ -78,8 +80,11 @@ public class Linker {
         String end1ID = end1.getJSONObject("reference").getString("$ref");
         String end2ID = end2.getJSONObject("reference").getString("$ref");
 
-        boolean end1Navigable = end1.has("name") && !end1.getString("name").equals("") && (!end1.has("navigable") || !end1.getBoolean("navigable"));
-        boolean end2Navigable = end2.has("name") && !end2.getString("name").equals("") && (!end2.has("navigable") || !end2.getBoolean("navigable"));
+        // boolean end1Navigable = end1.has("name") && !end1.getString("name").equals("") && (!end1.has("navigable") || !end1.getBoolean("navigable"));
+        // boolean end2Navigable = end2.has("name") && !end2.getString("name").equals("") && (!end2.has("navigable") || !end2.getBoolean("navigable"));
+
+        boolean end1Navigable =  !end1.has("navigable") || !end1.getString("navigable").equals("false");
+        boolean end2Navigable = !end2.has("navigable") || !end2.getString("navigable").equals("false");
 
         JSONObject source = JSONDB.DATABASE.getById(end1ID);
         JSONObject target = JSONDB.DATABASE.getById(end2ID);
@@ -110,6 +115,9 @@ public class Linker {
                 targetAttribute = generateAttributeFromEnd(end1);
             }
         }
+
+        System.out.println("target=" + targetAttribute);
+        System.out.println("source=" + sourceAttribute);
 
         if (targetAttribute != null) target.getJSONArray("attributes").put(targetAttribute);
         if (sourceAttribute != null) source.getJSONArray("attributes").put(sourceAttribute);

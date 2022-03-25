@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="benchmarking and fixed issues">
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/10classes_10associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/10classes_20associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_20associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_30associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_40associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/20classes_60associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BenchmarkFiles/5classes_5associations.mdj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jsondb_benchmark_results.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Benchmark.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/JSONDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UML2JAVA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UML2JAVA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Linker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/Translator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +66,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.jsonOptions" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -90,7 +81,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Benchmark">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Benchmark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Benchmark" />
       <module name="UML2JAVA" />
@@ -107,15 +98,19 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Main" />
       <module name="UML2JAVA" />
-      <option name="PROGRAM_PARAMETERS" value="UMLTestFiles/associative_class.mdj" />
+      <option name="PROGRAM_PARAMETERS" value="UMLTestFiles/diagram_store.mdj" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Benchmark" />
+      <item itemvalue="Application.Main" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Benchmark" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Benchmark" />
       </list>
     </recent_temporary>
   </component>
@@ -138,6 +133,7 @@
       <workItem from="1645536848954" duration="6429000" />
       <workItem from="1646230111665" duration="5811000" />
       <workItem from="1646238540219" duration="1290000" />
+      <workItem from="1648221506950" duration="5095000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
