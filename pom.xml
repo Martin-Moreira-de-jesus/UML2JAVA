@@ -35,7 +35,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fr.umlads.uml2java.db.Main</mainClass>
+                            <mainClass>fr.umlads.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
