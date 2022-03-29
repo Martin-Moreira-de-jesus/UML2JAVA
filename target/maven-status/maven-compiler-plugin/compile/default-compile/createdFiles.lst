@@ -1,4 +1,6 @@
-fr/umlads/uml2java/Translator.class
-fr/umlads/uml2java/Linker.class
-fr/umlads/uml2java/Main.class
-fr/umlads/uml2java/JSONDB.class
+fr\umlads\uml2java\Benchmark.class
+fr\umlads\uml2java\JSONDB.class
+fr\umlads\uml2java\Main.class
+fr\umlads\uml2java\Linker.class
+fr\umlads\uml2java\Translator.class
+fr\umlads\uml2java\UML2Java.class

@@ -17,7 +17,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "fr.umlads.uml2java.Main",
+					"name": "Main",
 					"defaultDiagram": true,
 					"ownedViews": [
 						{
