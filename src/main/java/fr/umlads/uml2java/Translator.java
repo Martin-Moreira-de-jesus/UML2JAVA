@@ -10,16 +10,24 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Translator {
-    public boolean addGettersAndSetters = false;
+    private final boolean addGettersAndSetters;
+    private final String outputDirPath;
+    private final String projectName;
+
+    public Translator(String projectName, String outputDirPath, boolean addGettersAndSetters) {
+        this.projectName = projectName;
+        this.addGettersAndSetters = addGettersAndSetters;
+        this.outputDirPath = outputDirPath;
+    }
 
     public void translate() throws IOException {
-        Linker linker = new Linker();
-
-        linker.link();
-
         JSONArray classes = JSONDB.DATABASE.fetchClasses();
 
-        // preProcess(classes);
+        preProcess(classes);
+
+        if (this.addGettersAndSetters) {
+            addGettersAndSetters(classes);
+        }
 
         for (int i = 0; i < classes.length(); i++) {
             JSONObject currentClass = classes.getJSONObject(i);
@@ -32,10 +40,69 @@ public class Translator {
         }
     }
 
+    private void addGettersAndSetters(JSONArray classes) {
+        for (Object o : classes) {
+            JSONObject umlClass = (JSONObject) o;
+            if (!umlClass.has("attributes")) continue;
+            JSONArray attributes = umlClass.getJSONArray("attributes");
+            for (Object attribute : attributes) {
+                JSONObject classAttribute = (JSONObject) attribute;
+
+                if (classAttribute.optString("isStatic").equals("true")
+                        || classAttribute.optString("visibility").equals("public")) continue;
+
+                if (!umlClass.has("operations")) {
+                    umlClass.put("operations", new JSONArray());
+                }
+
+                // getter operation
+                JSONObject getter = new JSONObject();
+                getter.put("name", "get" + classAttribute.getString("name").substring(0, 1).toUpperCase() + classAttribute.getString("name").substring(1));
+                getter.put("visibility", "public");
+
+                // parameter that represents the return value
+                JSONObject returnParameter = new JSONObject();
+                returnParameter.put("direction", "return");
+                returnParameter.put("type", classAttribute.getString("type"));
+
+                getter.put("parameters", new JSONArray());
+                getter.getJSONArray("parameters").put(returnParameter);
+
+                getter.put("content", "return " + classAttribute.getString("name") + ";");
+
+                umlClass.getJSONArray("operations").put(getter);
+
+                if (classAttribute.optString("isReadOnly").equals("true")) continue;
+
+                JSONObject setter = new JSONObject();
+
+                setter.put("name", "set" + classAttribute.getString("name").substring(0, 1).toUpperCase()  + classAttribute.getString("name").substring(1));
+                setter.put("visibility", "public");
+                setter.put("returnType", "void");
+
+                returnParameter = new JSONObject();
+                returnParameter.put("direction", "return");
+                returnParameter.put("type", "void");
+
+                JSONObject setterParameter = new JSONObject();
+                setterParameter.put("name", classAttribute.getString("name"));
+                setterParameter.put("type", classAttribute.getString("type"));
+
+                setter.put("parameters", new JSONArray());
+                setter.getJSONArray("parameters").put(returnParameter);
+                setter.getJSONArray("parameters").put(setterParameter);
+
+                setter.put("content", "this." + classAttribute.getString("name") + " = " + classAttribute.getString("name") + ";");
+
+                umlClass.getJSONArray("operations").put(setter);
+            }
+        }
+    }
+
     private void preProcess(JSONArray classes) {
         preProcessTemplateParameters(classes);
 
-        preProcessAttributes(classes); // to chose other kinds of collection types
+        //preProcessAttributes(classes); // to chose other kinds of collection types
     }
 
     private void preProcessAttributes(JSONArray classes) {
@@ -87,25 +154,21 @@ public class Translator {
     }
 
     public File makeDirsAndFile(JSONObject currentClass) throws IOException {
-        String filePath = (Main.target.equals("") ? System.getProperty("user.dir") : Main.target) + "/GeneratedProjet/src/";
+        String filePath = (outputDirPath.equals("") ? System.getProperty("user.dir") : outputDirPath) + "/"
+                + this.projectName + "/src/";
         if (currentClass.getString("_package").equals("null")) {
-            filePath += "fr.umlads.uml2java.Main/";
+            filePath += "com/company/";
         } else {
-            String[] dirs = currentClass.getString("_package").split("/.");
-
-            for (int j = 0; j < dirs.length; j++) {
-                filePath += dirs[j] + "/";
+            String[] dirs = currentClass.getString("_package").split("\\.");
+            for (String dir : dirs) {
+                filePath += dir + "/";
             }
         }
 
         File directory = new File(filePath);
 
         if (!directory.exists()) {
-            if (directory.mkdirs()) {
-                //System.out.println("Created directories: " + directory.getAbsolutePath());
-            } else {
-                //System.out.println("Couldn't create directories: " + directory.getAbsolutePath());
-            }
+            directory.mkdirs();
         }
 
         filePath += currentClass.getString("name");
@@ -124,38 +187,6 @@ public class Translator {
         }
 
         return classFile;
-    }
-
-    private String addSettersGetters(JSONArray attributes, JSONArray operations) {
-        String result = "";
-
-        for (int i = 0; i < attributes.length(); i++) {
-            JSONObject attribute = attributes.getJSONObject(i);
-            //System.out.println(attribute);
-
-            if (!attribute.has("visibility") || attribute.getString("visibility").equals("public")) continue;
-
-            result += "\tpublic "
-                    + attribute.getString("type") + " "
-                    + "get" + Character.toUpperCase(attribute.getString("name").charAt(0)) + attribute.getString("name").substring(1)
-                    + "() {\n"
-                    + "\t\treturn " + attribute.getString("name")
-                    + ";\n\t}\n\n";
-
-            if (!attribute.has("isReadOnly")) {
-                result += "\tpublic "
-                        + "void "
-                        + "set" + Character.toUpperCase(attribute.getString("name").charAt(0))
-                        + attribute.getString("name").substring(1)
-                        + "("
-                        + attribute.getString("type") + " " + attribute.getString("name")
-                        + ") {\n"
-                        + "\t\treturn this." + attribute.getString("name")
-                        + ";\n\t}\n\n";
-            }
-        }
-
-        return result;
     }
 
     private String translateAttributes(JSONArray attributes) {
@@ -213,7 +244,15 @@ public class Translator {
 
             result += ")";
             if (type.equals("class")) {
-                result += " {\n\t\t//TODO\n\t}";
+                result += " {\n\t\t";
+
+                if (operation.has("content")) {
+                    result += operation.getString("content");
+                } else {
+                    result += "//TODO";
+                }
+
+                result += "\n\t}";
             } else {
                 result += ";";
             }
@@ -253,12 +292,6 @@ public class Translator {
 
         if (umlClass.has("operations")) {
             result += translateOperations(umlClass.getJSONArray("operations"), type, umlClass.getString("name"));
-        }
-
-        if (umlClass.has("attributes") && addGettersAndSetters) {
-            result += addSettersGetters(umlClass.getJSONArray("attributes"),
-                    (umlClass.has("operations") ? umlClass.getJSONArray("operations") : new JSONArray()));
-
         }
 
         return result + "}";

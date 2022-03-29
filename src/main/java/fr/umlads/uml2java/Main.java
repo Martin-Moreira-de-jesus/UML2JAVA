@@ -5,29 +5,35 @@ import org.json.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class Main {
-    public static String target = "";
-
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("Usage : " + "uml2java <source>");
+        if (args.length < 2) {
+            System.out.println("Usage : " + "uml2java <source> <target>");
             System.exit(1);
         }
 
-        String source = args[0];
+        boolean generateGettersAndSetters = false;
+        
+        if (Arrays.asList(args).contains("-sg")) {
+            generateGettersAndSetters = true;
+        }
 
-        if (args.length > 1) {
-            target = args[1];
+        String source = args[0];
+        String target = args[1];
+
+        if (!Files.exists(Paths.get(source))) {
+            System.out.println("Source file does not exist");
+            System.exit(1);
+        } else if (!Files.exists(Paths.get(target))) {
+            System.out.println("Target directory does not exist");
+            System.exit(1);
         }
 
         try {
-            // String filePath = System.getProperty("user.dir") + (source.charAt(0) == '/' ? "" : "/") + source;
-            String jsonFile = new String(Files.readAllBytes(Paths.get(source)));
-            JSONObject project = new JSONObject(jsonFile);
-            JSONDB.init(project);
-            Translator translator = new Translator();
-            translator.translate();
+            UML2Java translator = new UML2Java(source, target, generateGettersAndSetters);
+            translator.generate();
         } catch (IOException e) {
             e.printStackTrace();
         }

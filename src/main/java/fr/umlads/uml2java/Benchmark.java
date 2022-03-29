@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class Benchmark {
     public static void main(String[] args) {
+        /*
         File directory = new File("BenchmarkFiles/");
         ArrayList<String> files = new ArrayList<String>(List.of(Objects.requireNonNull(directory.list())));
 
@@ -48,5 +49,7 @@ public class Benchmark {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+
     }
 }

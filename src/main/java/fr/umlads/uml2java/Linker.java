@@ -65,9 +65,9 @@ public class Linker {
         String type = JSONDB.DATABASE.getById(end.getJSONObject("reference").
                 getString("$ref")).getString("name");
 
-        if (attribute.getString("multiplicity").contains("*") || attribute.getString("multiplicity").contains("n")
-                || attribute.getString("multiplicity").matches("[2-9]") || (attribute.has("aggregation")
-                && attribute.getString("aggregation").matches("shared|composed"))) {
+        String multiplicity = end.has("multiplicity") ? end.getString("multiplicity") : "";
+
+        if (multiplicity.contains("*") || multiplicity.contains("n") || multiplicity.matches("[2-9]")) {
             type += "[]";
         }
 
@@ -115,9 +115,6 @@ public class Linker {
                 targetAttribute = generateAttributeFromEnd(end1);
             }
         }
-
-        System.out.println("target=" + targetAttribute);
-        System.out.println("source=" + sourceAttribute);
 
         if (targetAttribute != null) target.getJSONArray("attributes").put(targetAttribute);
         if (sourceAttribute != null) source.getJSONArray("attributes").put(sourceAttribute);
