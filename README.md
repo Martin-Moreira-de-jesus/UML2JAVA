@@ -4,6 +4,7 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 ## Sommaire
 
+* [Utilisation](#utilisation)
 * [Génération de code Java](#gnration-de-code-java-uml2java)
   * [Fonctionnalités StarUML supportées](#fonctionnalits-staruml-supportes)
   * [UMLPackage](#umlpackage)
@@ -17,6 +18,25 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
   * [UMLDependency](#umldependency)
   * [UMLGeneralization](#umlgeneralization)
   * [UMLInterfaceRealization](#umlinterfacerealization)
+
+## Utilisation
+
+### UML2Java
+
+`umlads uml2java [source] [destination] [options]`
+
+#### Options
+
+* -sg
+  * Ajoute les getters et setters (désactivé par défaut)
+
+#### Java2UML
+
+`umlads uml2java [source] [destination]`
+
+## Téléchargement
+
+
 
 ## Génération de code Java (UML2Java)
 
