@@ -186,14 +186,14 @@ Notons que dans cette partie nous nous servons également d'une partie des class
 
 ### MdjGenerator
 * Permet de générer un digramme StarUML à partir d'un objet de type UMLProject
-* L'objet de type [UMLProject]() sera instancié à partir d'un objet de type [UMLDiagram]() grâce à la méthode `generateUMLProject()`
+* L'objet de type [UMLProject](#umlproject) sera instancié à partir d'un objet de type [UMLDiagram](#umldiagram) grâce à la méthode `generateUMLProject()`
 
 ### UMLDiagram
 * Contient l'ensemble des classes du projet Java2UML dans `myClasses`
 * Implémente une méthode `toJson()` permettant d'obtenir le format attendu par StarUML
 
 ### UMLProject
-* Contient un objet [UMLDiagram]() nommé `diagram`
+* Contient un objet [UMLDiagram](#umldiagram) nommé `diagram`
 * Implémente une méthode `toJson()` permettant d'obtenir le format final lisible par StarUML
 
 ### UMLSourceTargetRelation
