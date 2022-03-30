@@ -4,7 +4,8 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 ## Sommaire
 
-
+* [Génération de code Java](#gnration-de-code-java-uml2java)
+* 
 
 ## Génération de code Java (UML2Java)
 
@@ -63,7 +64,7 @@ types génériques n'y apparaitront pas.
   * `defaultValue`
   * `isDerived`
   * `isID`
-  * `aggregation` car elles sont interprétées dans les [UMLAssociations](#UMLAssociations)
+  * `aggregation` car elles sont interprétées dans les [UMLAssociations](#umlassociation)
 
 ### UMLOperation
 
@@ -83,25 +84,25 @@ types génériques n'y apparaitront pas.
 
 * Convertie en interface java (fichier `.java`)
 * Toutes les méthodes sont complétée par un point virgule
-* Le reste est le même que pour une [UMLClass](#UMLClass)
+* Le reste est le même que pour une [UMLClass](#umlclass)
 
 ### UMLAssociation
 
-* Convertie en premier temps en [UMLAttribute](#UMLAttribute) puis en variable de classe java
+* Convertie en premier temps en [UMLAttribute](#umlattribue) puis en variable de classe java
 * Propriété UML `visibility` convertie en visibilité de l'attribut : `public`, `protected`, `private`
-* Les `UMLAssociationEnd` sont converties en [UMLAttribute](#UMLAttribute) en fonction des données suivantes :
+* Les `UMLAssociationEnd` sont converties en [UMLAttribute](#umlattribute) en fonction des données suivantes :
   * Propriété `name` convertie en nom de la variable
   * Propriété `type` convertie en type de la variable
-  * Propriété `multiplicity` est simplement transférée à un [UMLAttribute](#UMLAttribute) qui sera traduit
+  * Propriété `multiplicity` est simplement transférée à un [UMLAttribute](#umlattribute) qui sera traduit
   * Propriété `reference` utilisée pour déterminer à quelle classe l'`UMLAssociationEnd` fait référence
 
 ### UMLAssociationClassLink (classes associatives)
 
-* Même procédé qu'une [UMLAssociation](#UMLAssociation) sauf que toutes les variables sont ajoutée à la classe associative
+* Même procédé qu'une [UMLAssociation](#umlassociation) sauf que toutes les variables sont ajoutée à la classe associative
 
 ### UMLDependency
 
-* Converties en un premier temps en [UMLOperation](#UMLOperation) puis en méthode de classe java
+* Converties en un premier temps en [UMLOperation](#umloperation) puis en méthode de classe java
 * Propriété UML `visibility` convertie en visibilité de l'attribut : `public`, `protected`, `private`
 * Le nom de la méthode prendra le `name` de l'`UMLDependency` si il est spécifié, sinon la méthode s'appellera "`use` + le nom de la classe qui sera utilisée"
 * Le type sera `void` et il y aura le nom de la classe utilisée en paramètre
@@ -114,5 +115,5 @@ types génériques n'y apparaitront pas.
 ### UMLInterfaceRealization
 
 * Convertie en implémentation d'interface (`implements`)
-* <span style="color: orange">Attention : </span> comme pour l'[UMLGeneralization](#UMLGeneralization) les erreurs n'y sont pas gérées
+* <span style="color: orange">Attention : </span> comme pour l'[UMLGeneralization](#umlgeneralization) les erreurs n'y sont pas gérées
 
