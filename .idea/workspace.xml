@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="readme">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="readme" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,7 +141,7 @@
       <workItem from="1648221506950" duration="5560000" />
       <workItem from="1648553629645" duration="29000" />
       <workItem from="1648553694002" duration="9375000" />
-      <workItem from="1648635397638" duration="4709000" />
+      <workItem from="1648635397638" duration="5275000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
@@ -292,7 +290,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648639886011</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="readme">
+      <created>1648640153835</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1648640153835</updated>
+    </task>
+    <task id="LOCAL-00023" summary="readme">
+      <created>1648640263015</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1648640263015</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

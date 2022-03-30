@@ -23,7 +23,7 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 ### UML2Java
 
-`umlads uml2java [source] [destination] [options]`
+`java umlads.jar uml2java [source] [destination] [options]`
 
 #### Options
 
@@ -32,11 +32,11 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 #### Java2UML
 
-`umlads uml2java [source] [destination]`
+`java umlads.jar uml2java [source] [destination]`
 
 ## Téléchargement
 
-<a href="https://github.com/Martin-Moreira-de-jesus/UML2JAVA/blob/main/target/umlads.jar" download>Télécharger l'application</a>
+[Télécharger](https://github.com/Martin-Moreira-de-jesus/UML2JAVA/blob/main/target/umlads.jar)
 
 ## Génération de code Java (UML2Java)
 
