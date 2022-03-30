@@ -1,6 +1,5 @@
 package fr.umlads;
 
-import fr.java2uml.ArgumentException;
 import fr.java2uml.JavaAnalyser;
 import fr.umlads.uml2java.db.UML2Java;
 
@@ -10,8 +9,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws ArgumentException, IOException {
-        if (args.length < 2) {
+    public static void main(String[] args) throws IOException {
+        if (args.length < 3) {
             System.out.println("Usage : " + "umlads <uml2java|java2uml> <source> <target> [options]");
             System.exit(1);
         }
@@ -40,22 +39,15 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (direction.equals("java2uml")) {
-            checkArgs(args);
+        }
+        else if (direction.equals("java2uml")) {
             JavaAnalyser analyser = new JavaAnalyser(source, target);
-        } else {
+        }
+        else {
             System.out.println("Unknown direction");
             System.exit(1);
         }
     }
 
-    public static void checkArgs(String[] args) throws ArgumentException {
-        switch (args.length) {
-            case 0, 1 ->
-                    throw new ArgumentException("Renseignez le dossier contenant les fichiers java en premier argument et le dossier de sortie en second argument.");
-            case 2 -> {}
-            default ->
-                    throw new ArgumentException("Trop d'arguments");
-        }
-    }
+
 }

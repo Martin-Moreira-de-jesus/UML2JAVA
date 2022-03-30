@@ -7,12 +7,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class JavaAnalyser {
 	private final List<File> files = new ArrayList<>();
 	private final String outputFolder;
 	private final File folderToAnalyse;
-	private IdGenerator idGenerator;
+	private final IdGenerator idGenerator;
 
 	public JavaAnalyser(String inputFolder, String outputFolder) throws IOException {
 		this.outputFolder = outputFolder;
@@ -21,13 +22,24 @@ public class JavaAnalyser {
 		startAnalyse();
 	}
 
+	public String getFileExtension(File file){
+		String fileName = file.getName();
+		for (int i = 0; i < fileName.length(); i++){
+			if(fileName.charAt(i) == '.'){
+				return fileName.substring(i);
+			}
+		}
+		return "";
+	}
 
 	public void listFilesForFolder(File folder) {
 		for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
 			if (fileEntry.isDirectory()) {
 				listFilesForFolder(fileEntry);
 			} else {
-				files.add(fileEntry);
+				if(Objects.equals(getFileExtension(fileEntry), ".java")){
+					files.add(fileEntry);
+				}
 			}
 		}
 	}
@@ -332,7 +344,6 @@ public class JavaAnalyser {
 						}
 						if (!isAlsoAnAttribute) {
 							UMLSourceTargetRelation newDependency = new UMLSourceTargetRelation();
-							newDependency.setMyClassId(c.getId());
 							newDependency.setId(idGenerator.createId());
 							newDependency.setSourceTargetType("UMLDependency");
 							newDependency.setName("Utilise");
@@ -345,7 +356,6 @@ public class JavaAnalyser {
 			}
 			if (!c.getExtendedClass().equals("")) {
 				UMLSourceTargetRelation newDependency = new UMLSourceTargetRelation();
-				newDependency.setMyClassId(c.getId());
 				newDependency.setId(idGenerator.createId());
 				newDependency.setSourceTargetType("UMLGeneralization");
 				newDependency.setName("Hérite de");
@@ -357,7 +367,6 @@ public class JavaAnalyser {
 			
 			for (String implementedClass : c.getImplementedClasses()) {
 				UMLSourceTargetRelation newDependency = new UMLSourceTargetRelation();
-				newDependency.setMyClassId(c.getId());
 				newDependency.setId(idGenerator.createId());
 				newDependency.setSourceTargetType("UMLInterfaceRealization");
 				newDependency.setName("Implémente");
@@ -369,17 +378,18 @@ public class JavaAnalyser {
 		}
 	}
 
+	public void startAnalyse() throws IOException, JSONException {
+		listFilesForFolder(folderToAnalyse);
+		UMLDiagram d = analyseFiles();
+		generateJsonFile(d);
+	}
+
 	public void generateJsonFile(UMLDiagram diagram) throws JSONException {
 		MdjGenerator j = new MdjGenerator();
 		j.generateJsonFileFromDiagram(outputFolder, diagram);
 	}
 
-	public void startAnalyse() throws IOException, JSONException {
-		listFilesForFolder(folderToAnalyse);
-		UMLDiagram d = analyseFiles();
-		generateJsonFile(d);
 
-	}
 
 
 

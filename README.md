@@ -1,3 +1,4 @@
+
 # UML2JAVA - Java2UML
 
 Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par l'application de modélisation d'application [StarUML](https://staruml.io/). Il traduis des diagrammes de classes générés par ce dernier en code Java ainsi que l'inverse.
@@ -19,6 +20,7 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
   * [UMLDependency](#umldependency)
   * [UMLGeneralization](#umlgeneralization)
   * [UMLInterfaceRealization](#umlinterfacerealization)
+* [Génération de diagramme UML](#)
 
 ## Utilisation
 
@@ -81,8 +83,8 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 ### UMLTemplateParameter
 
 * Les type génériques seront ajoutés à au nom de la classe à la quelle ils ont été ajoutés mais il ne seront pas ajoutés
-lorsqu'on y fait référence ailleurs, par exemple si une autre classe à un objet du type de cette classe générique, les
-types génériques n'y apparaitront pas.
+  lorsqu'on y fait référence ailleurs, par exemple si une autre classe à un objet du type de cette classe générique, les
+  types génériques n'y apparaitront pas.
 
 ### UMLAttribute
 
@@ -148,4 +150,49 @@ types génériques n'y apparaitront pas.
 
 * Convertie en implémentation d'interface (`implements`)
 * <span style="color: orange">Attention : </span> comme pour l'[UMLGeneralization](#umlgeneralization) les erreurs n'y sont pas gérées
+
+## Génération de diagramme UML (Java2UML)
+
+Notons que dans cette partie nous nous servons également d'une partie des classes citées précédemment.
+
+### Fonctionnalités Java supportées
+* Classes java
+* Classes abstraites
+* Interfaces
+* Variables de tout types privées, publiques, statiques ou abstraites
+* Collections de tout types
+* Constructeurs
+* Fonctions de tout types de retour privées, publiques, statiques ou abstraites
+* Paramètres de fonctions
+* Héritages
+* Aggrégations
+* Dépendances
+* Associations
+
+### IdGenerator
+* Classe singleton permettant la génération d'identifiants uniques UUID (immutable universally unique identifier) grâce à la méthode `createId()`
+
+### JavaAnalyser
+* Permet de générer un objet de type [UMLDiagram](#umldiagram) à partir d'un dossier contenant un projet java ou des fichiers java
+* <span style="color: orange">Attention : </span> Cet analyseur ne permet pas de vérifier la syntaxte du code Java, il faudra veiller à fournir un code correct syntaxiquement
+* <span style="color: orange">Attention : </span> L'analyse se limite à une classe par fichier java
+
+### MdjGenerator
+* Permet de générer un digramme StarUML à partir d'un objet de type UMLProject
+* L'objet de type [UMLProject]() sera instancié à partir d'un objet de type [UMLDiagram]() grâce à la méthode `generateUMLProject()`
+
+### UMLDiagram
+* Contient l'ensemble des classes du projet Java2UML dans `myClasses`
+* Implémente une méthode `toJson()` permettant d'obtenir le format attendu par StarUML
+
+### UMLProject
+* Contient un objet [UMLDiagram]() nommé `diagram`
+* Implémente une méthode `toJson()` permettant d'obtenir le format final lisible par StarUML
+
+### UMLSourceTargetRelation
+* Permet de manipuler toutes les relations UML incluant une source et une destination (dépendences, génralisations, réalisations d'interfaces)
+* Le type de relation est précisé dans `sourceTargetType`
+* `source` et `target` font référence aux indentifiants de la classe source et de la classe destination de la relation
+* C'est la classe source qui hébergera la relation dans le fichier JSON du diagramme
+
 

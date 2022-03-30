@@ -9,7 +9,6 @@ public class UMLSourceTargetRelation extends UMLObject {
     private String target;
 	private String source;
 	private String sourceTargetType = "";
-    private String myClassId;
 
     public String getTarget() {
 		return target;
@@ -18,7 +17,6 @@ public class UMLSourceTargetRelation extends UMLObject {
 	public void setTarget(String target) {
 		this.target = target;
 	}
-
 
 	public String getSource() {
 		return source;
@@ -36,9 +34,6 @@ public class UMLSourceTargetRelation extends UMLObject {
         s += "\t\t\t" + source;
         return s;
     }
-    public String getMyClassId() {return myClassId;}
-
-    public void setMyClassId(String myClassId) {this.myClassId = myClassId;}
 
     public String getName() {
         return super.getName();
@@ -100,7 +95,7 @@ public class UMLSourceTargetRelation extends UMLObject {
         sourceTargetRelation.put("_type", getSourceTargetType());
         sourceTargetRelation.put("_id", getId());
         JSONObject parent = new JSONObject();
-        parent.put("$ref", getMyClassId());
+        parent.put("$ref", getSource());
         sourceTargetRelation.put("_parent", parent);
         sourceTargetRelation.put("name", getName());
         JSONObject source = new JSONObject();
