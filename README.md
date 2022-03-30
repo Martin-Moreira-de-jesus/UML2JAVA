@@ -5,7 +5,18 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 ## Sommaire
 
 * [Génération de code Java](#gnration-de-code-java-uml2java)
-* 
+  * [Fonctionnalités StarUML supportées](#fonctionnalits-staruml-supportes)
+  * [UMLPackage](#umlpackage)
+  * [UMLClass](#umlclass)
+  * [UMLInterface](#umlinterface)
+  * [UMLTemplateParameter](#umltemplateparameter)
+  * [UMLAttribute](#umlattribute)
+  * [UMLOperation](#umloperation)
+  * [UMLAssociation](#umlassociation)
+  * [UMLAssociationClassLink](#umlassociationclasslink-classes-associatives)
+  * [UMLDependency](#umldependency)
+  * [UMLGeneralization](#umlgeneralization)
+  * [UMLInterfaceRealization](#umlinterfacerealization)
 
 ## Génération de code Java (UML2Java)
 
@@ -39,6 +50,12 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
   * Non généré pour des attribut dont la `visibility` est publique
   * Si l'attribut est précisé `isReadOnly` seul l'accesseur est créé
   * La méthode d'accès prends le nom de l'attribut avec un `get` ou `set` placé devant et la première lettre capitalisé
+
+### UMLInterface
+
+* Convertie en interface java (fichier `.java`)
+* Toutes les méthodes sont complétée par un point virgule
+* Le reste est le même que pour une [UMLClass](#umlclass)
 
 ### UMLTemplateParameter
 
@@ -80,15 +97,9 @@ types génériques n'y apparaitront pas.
   * Les paramètres son séparés par des virgules et un espace
 * Si la méthode est abstraire on y mets un point virgule à la fin, sinon on rempli son corps avec `// TODO`
 
-### UMLInterface
-
-* Convertie en interface java (fichier `.java`)
-* Toutes les méthodes sont complétée par un point virgule
-* Le reste est le même que pour une [UMLClass](#umlclass)
-
 ### UMLAssociation
 
-* Convertie en premier temps en [UMLAttribute](#umlattribue) puis en variable de classe java
+* Convertie en premier temps en [UMLAttribute](#umlattribute) puis en variable de classe java
 * Propriété UML `visibility` convertie en visibilité de l'attribut : `public`, `protected`, `private`
 * Les `UMLAssociationEnd` sont converties en [UMLAttribute](#umlattribute) en fonction des données suivantes :
   * Propriété `name` convertie en nom de la variable
