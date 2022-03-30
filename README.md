@@ -5,7 +5,22 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 ## Sommaire
 
 
+
 ## Génération de code Java (UML2Java)
+
+### Fonctionnalités StarUML supportées
+
+* Class
+* Interface
+* Associations
+* DirectedAssociation
+* Aggregation
+* Composition
+* Dependency
+* Generalization
+* Interface Realization
+* Package
+* Template Parameters
 
 ### UMLPackage
 
@@ -23,8 +38,12 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
   * Non généré pour des attribut dont la `visibility` est publique
   * Si l'attribut est précisé `isReadOnly` seul l'accesseur est créé
   * La méthode d'accès prends le nom de l'attribut avec un `get` ou `set` placé devant et la première lettre capitalisé
-* <span style="color: orange">Attention : </span>Nous ne vérifions pas la validité du diagramme, si vous créez une classe 
-qui hérite d'une interface par exemple, cet héritage sera interprété 
+
+### UMLTemplateParameter
+
+* Les type génériques seront ajoutés à au nom de la classe à la quelle ils ont été ajoutés mais il ne seront pas ajoutés
+lorsqu'on y fait référence ailleurs, par exemple si une autre classe à un objet du type de cette classe générique, les
+types génériques n'y apparaitront pas.
 
 ### UMLAttribute
 
@@ -32,7 +51,7 @@ qui hérite d'une interface par exemple, cet héritage sera interprété
 * Propriété UML `visibility` convertie en visibilité de la variable : `public`, `protected`, `private`
 * Propriété UML `isAbstract` convertie en mot-clé `abstract`
 * Propriété `name` convertie en nom de la variable
-* Propriété `type` convertier en type de la variable
+* Propriété `type` convertie en type de la variable
 * Propriété `multiplicity` interprétée et modifiée en type Java Array en fonction de celui-ci :
   * Si elle contient une *, n, ou qu'elle est supérieur à 2 le type de la variable deviens de type Java Array ( type + [] )
   * Sinon, son type reste le même
@@ -63,4 +82,37 @@ qui hérite d'une interface par exemple, cet héritage sera interprété
 ### UMLInterface
 
 * Convertie en interface java (fichier `.java`)
-* 
+* Toutes les méthodes sont complétée par un point virgule
+* Le reste est le même que pour une [UMLClass](#UMLClass)
+
+### UMLAssociation
+
+* Convertie en premier temps en [UMLAttribute](#UMLAttribute) puis en variable de classe java
+* Propriété UML `visibility` convertie en visibilité de l'attribut : `public`, `protected`, `private`
+* Les `UMLAssociationEnd` sont converties en [UMLAttribute](#UMLAttribute) en fonction des données suivantes :
+  * Propriété `name` convertie en nom de la variable
+  * Propriété `type` convertie en type de la variable
+  * Propriété `multiplicity` est simplement transférée à un [UMLAttribute](#UMLAttribute) qui sera traduit
+  * Propriété `reference` utilisée pour déterminer à quelle classe l'`UMLAssociationEnd` fait référence
+
+### UMLAssociationClassLink (classes associatives)
+
+* Même procédé qu'une [UMLAssociation](#UMLAssociation) sauf que toutes les variables sont ajoutée à la classe associative
+
+### UMLDependency
+
+* Converties en un premier temps en [UMLOperation](#UMLOperation) puis en méthode de classe java
+* Propriété UML `visibility` convertie en visibilité de l'attribut : `public`, `protected`, `private`
+* Le nom de la méthode prendra le `name` de l'`UMLDependency` si il est spécifié, sinon la méthode s'appellera "`use` + le nom de la classe qui sera utilisée"
+* Le type sera `void` et il y aura le nom de la classe utilisée en paramètre
+
+### UMLGeneralization
+
+* Convertie en héritage Java (`extends`)
+* <span style="color: orange">Attention : </span>les erreurs ne sont pas gérée donc une interface peux hériter d'une classe sans erreurs
+
+### UMLInterfaceRealization
+
+* Convertie en implémentation d'interface (`implements`)
+* <span style="color: orange">Attention : </span> comme pour l'[UMLGeneralization](#UMLGeneralization) les erreurs n'y sont pas gérées
+
