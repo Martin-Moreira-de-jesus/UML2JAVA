@@ -201,7 +201,7 @@ public class Linker {
             operation.put("name", dependency.getString("name"));
         } else {
             String operationName = target.getString("name");
-            operationName = operationName.substring(0, 1).toLowerCase() + operationName.substring(1);
+            operationName = "use" + operationName.substring(0, 1).toUpperCase() + operationName.substring(1);
             operation.put("name", operationName);
         }
 
