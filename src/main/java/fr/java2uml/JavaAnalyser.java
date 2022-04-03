@@ -277,7 +277,6 @@ public class JavaAnalyser {
 		classString = classString.replaceAll("\s+[{]\s+", " { ");
 		classString = classString.replaceAll("\s+[}]\s+", " } ");
 		classString = classString.replaceAll("\s+", " ").strip();
-		System.out.println(classString);
 		return classString;
 	}
 
