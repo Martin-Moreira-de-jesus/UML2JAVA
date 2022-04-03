@@ -258,6 +258,8 @@ public class JavaAnalyser {
 	}
 
 	public String formatClassString(String classString) {
+		classString = classString.replaceAll("(/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+/)", "");
+		classString = classString.replaceAll("[@]\\w+", "");
 		classString = classString.replaceAll("\s+", " ").strip();
 		classString = classString.replaceAll("\\s+>\\s+", "> ");
 		classString = classString.replaceAll(">", "> ");
@@ -275,6 +277,7 @@ public class JavaAnalyser {
 		classString = classString.replaceAll("\s+[{]\s+", " { ");
 		classString = classString.replaceAll("\s+[}]\s+", " } ");
 		classString = classString.replaceAll("\s+", " ").strip();
+		System.out.println(classString);
 		return classString;
 	}
 
@@ -287,6 +290,8 @@ public class JavaAnalyser {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			while (reader.ready()) {
 				String line = reader.readLine();
+				if(line.contains("//"))
+					line = line.substring(0, line.indexOf("//"));
 				classString.append(line);
 			}
 
