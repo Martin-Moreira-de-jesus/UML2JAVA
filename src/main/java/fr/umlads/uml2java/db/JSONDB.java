@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 public class JSONDB {
     private String name;
-    public JSONArray db = new JSONArray();
-    public static JSONDB DATABASE;
+    private JSONArray db = new JSONArray();
+    private static JSONDB DATABASE;
 
     public static void init(JSONObject jsonObject) {
         DATABASE = new JSONDB(jsonObject);
@@ -35,8 +35,8 @@ public class JSONDB {
         return umlClasses;
     }
 
-    public JSONObject getObjectWith(String key, String value) {
-        for (Object object : this.db) {
+    public static JSONObject getObjectWith(String key, String value) {
+        for (Object object : DATABASE.db) {
             JSONObject jsonObject = (JSONObject) object;
             if (jsonObject.has(key) && jsonObject.getString(key).equals(value)) {
                 return jsonObject;
@@ -66,10 +66,6 @@ public class JSONDB {
             umlClass.remove("ownedElements");
         }
         this.db.putAll(classes);
-    }
-
-    public JSONArray getDatabase() {
-        return db;
     }
 
     public JSONArray getAllLinks() {
@@ -119,5 +115,9 @@ public class JSONDB {
         }
 
         return result;
+    }
+
+    public static JSONDB getInstance() {
+        return DATABASE;
     }
 }

@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="readme">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/java2uml/ArgumentException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/java2uml/JavaAnalyser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/java2uml/JavaAnalyser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/java2uml/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/java2uml/UMLSourceTargetRelation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/java2uml/UMLSourceTargetRelation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="readme" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +86,20 @@
       <command value="mvn clean compile assembly:single" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Benchmark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Benchmark" />
+      <module name="UML2JAVA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.umlads.uml2java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Main" />
       <module name="UML2JAVA" />
@@ -103,24 +108,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fr.umlads.Main" />
-      <module name="UML2JAVA" />
-      <option name="PROGRAM_PARAMETERS" value="java2uml &quot;C:\Users\mathy\Documents\PTUT\FolderToAnalyse&quot; &quot;C:\Users\mathy\Documents\PTUT\JsonGeneration&quot;" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fr.umlads.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.Benchmark" />
+      <item itemvalue="Application.Main" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Benchmark" />
       </list>
     </recent_temporary>
   </component>
@@ -147,7 +142,6 @@
       <workItem from="1648553629645" duration="29000" />
       <workItem from="1648553694002" duration="9375000" />
       <workItem from="1648635397638" duration="5275000" />
-      <workItem from="1648661756456" duration="4565000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>

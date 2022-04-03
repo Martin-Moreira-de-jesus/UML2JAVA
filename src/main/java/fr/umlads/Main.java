@@ -22,7 +22,7 @@ public class Main {
         if (!Files.exists(Paths.get(source))) {
             System.out.println("Source file does not exist");
             System.exit(1);
-        } else if (!Files.exists(Paths.get(target))) {
+        } else if (!Files.exists(Paths.get(target)) && !target.equals(".")) {
             System.out.println("Target directory does not exist");
             System.exit(1);
         }

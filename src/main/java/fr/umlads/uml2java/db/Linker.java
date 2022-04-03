@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class Linker {
     public void link() {
-        JSONArray links = JSONDB.DATABASE.getAllLinks();
+        JSONArray links = JSONDB.getInstance().getAllLinks();
 
         for (int i = 0; i < links.length(); ++i) {
             JSONObject link = (JSONObject) links.get(i);
@@ -15,8 +15,8 @@ public class Linker {
             JSONObject target = null;
 
             if (!link.getString("_type").matches("UMLAssociation|UMLAssociationClassLink")) {
-                source = JSONDB.DATABASE.getById(link.getJSONObject("source").getString("$ref"));
-                target = JSONDB.DATABASE.getById(link.getJSONObject("target").getString("$ref"));
+                source = JSONDB.getInstance().getById(link.getJSONObject("source").getString("$ref"));
+                target = JSONDB.getInstance().getById(link.getJSONObject("target").getString("$ref"));
             }
 
             String linkType = link.getString("_type");
@@ -34,7 +34,7 @@ public class Linker {
                 case "UMLAssociation" -> generateAssociationRelationship(link);
             }
 
-            JSONDB.DATABASE.remove(link);
+            JSONDB.getInstance().remove(link);
         }
     }
 
@@ -56,12 +56,12 @@ public class Linker {
         if (end.has("name")) {
             attribute.put("name", end.getString("name"));
         } else {
-            String name = JSONDB.DATABASE.getById(end.getJSONObject("reference").
+            String name = JSONDB.getInstance().getById(end.getJSONObject("reference").
                     getString("$ref")).getString("name");
             name = name.substring(0, 1).toLowerCase(Locale.ROOT) + name.substring(1);
             attribute.put("name", name);
         }
-        String type = JSONDB.DATABASE.getById(end.getJSONObject("reference").
+        String type = JSONDB.getInstance().getById(end.getJSONObject("reference").
                 getString("$ref")).getString("name");
 
         String multiplicity = end.has("multiplicity") ? end.getString("multiplicity") : "";
@@ -85,8 +85,8 @@ public class Linker {
         boolean end1Navigable =  !end1.has("navigable") || !end1.getString("navigable").equals("false");
         boolean end2Navigable = !end2.has("navigable") || !end2.getString("navigable").equals("false");
 
-        JSONObject source = JSONDB.DATABASE.getById(end1ID);
-        JSONObject target = JSONDB.DATABASE.getById(end2ID);
+        JSONObject source = JSONDB.getInstance().getById(end1ID);
+        JSONObject target = JSONDB.getInstance().getById(end2ID);
 
         if (!target.has("attributes")) {
             target.put("attributes", new JSONArray());
@@ -120,7 +120,7 @@ public class Linker {
     }
 
     private void generateAssociationRelationship(JSONObject link) {
-        JSONObject classLink = JSONDB.DATABASE.getObjectWith("_type", "UMLAssociationClassLink");
+        JSONObject classLink = JSONDB.getObjectWith("_type", "UMLAssociationClassLink");
         if (classLink != null
                 && classLink.getJSONObject("associationSide").getString("$ref").equals(link.getString("_id"))) {
             addAttributeToAssociativeClass(link, classLink);
@@ -132,7 +132,7 @@ public class Linker {
     }
 
     private void addAttributeToAssociativeClass(JSONObject link, JSONObject classLink) {
-        JSONObject UMLClass = JSONDB.DATABASE.getObjectWith("_id", classLink.getJSONObject("classSide").getString("$ref"));
+        JSONObject UMLClass = JSONDB.getObjectWith("_id", classLink.getJSONObject("classSide").getString("$ref"));
         JSONObject end1 = link.getJSONObject("end1");
         JSONObject end2 = link.getJSONObject("end2");
 

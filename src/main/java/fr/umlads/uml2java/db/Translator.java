@@ -21,7 +21,7 @@ public class Translator {
     }
 
     public void translate() throws IOException {
-        JSONArray classes = JSONDB.DATABASE.fetchClasses();
+        JSONArray classes = JSONDB.getInstance().fetchClasses();
 
         preProcess(classes);
 
@@ -212,7 +212,7 @@ public class Translator {
             try {
                 result += parameter.getString("type");
             } catch (JSONException e) {
-                result += JSONDB.DATABASE.getById(parameter.getJSONObject("type").getString("$ref")).getString("name");
+                result += JSONDB.getInstance().getById(parameter.getJSONObject("type").getString("$ref")).getString("name");
             }
             result += " " + parameter.getString("name") + ", ";
         }
@@ -307,7 +307,7 @@ public class Translator {
                         type = parameters.getJSONObject(i).getString("type");
                     } catch (JSONException e) {
                         String reference = parameters.getJSONObject(i).getJSONObject("type").getString("$ref");
-                        type = JSONDB.DATABASE.getById(reference).getString("name");
+                        type = JSONDB.getInstance().getById(reference).getString("name");
                     }
 
                     parameters.remove(i);
