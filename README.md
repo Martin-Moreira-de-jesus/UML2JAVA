@@ -202,4 +202,10 @@ Notons que dans cette partie nous nous servons également d'une partie des class
 * `source` et `target` font référence aux indentifiants de la classe source et de la classe destination de la relation
 * C'est la classe source qui hébergera la relation dans le fichier JSON du diagramme
 
+### UMLOrganiser
+* Permet d'affecter des positions cohérentes aux différentes classes du diagramme en fonction des autres classes et de leurs associations.
+
+### UMLClassView
+* Permet de manipuler des objets ClassView pour notamment gérer les positions du diagramme.
+
 
