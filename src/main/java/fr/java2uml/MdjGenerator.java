@@ -1,5 +1,6 @@
 package fr.java2uml;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.awt.*;
@@ -18,6 +19,11 @@ public class MdjGenerator {
 	}
 
 	public void generateJsonFileFromDiagram(String path, UMLDiagram diagram) throws JSONException {
+
+		UMLOrganiser organiser = new UMLOrganiser();
+		JSONArray classes = organiser.organizeClasses(diagram);
+		generateUMLProject(diagram);
+
 		generateUMLProject(diagram);
 		try {
 			File file = new File(path + "/Diagram.mdj");
@@ -27,7 +33,7 @@ public class MdjGenerator {
 				System.out.println("Le fichier existe déjà.");
 			}
 			FileWriter writer = new FileWriter(path + "/Diagram.mdj");
-			writer.write(UMLProject.toString());
+			writer.write(UMLProject.toString(classes));
 			writer.close();
 			Desktop.getDesktop().open(file);
 			Desktop.getDesktop().open(file.getParentFile());

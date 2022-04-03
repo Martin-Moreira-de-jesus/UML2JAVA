@@ -44,6 +44,41 @@ public class UMLProject {
             return "";
         }
     }
+
+    // Pour le placement des classes
+    public String toString(JSONArray classes) {
+        try {
+            return toJson(classes).toString(4);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public JSONObject toJson(JSONArray classes) throws JSONException {
+        JSONObject project = new JSONObject();
+        project.put("_type", "Project");
+        project.put("_id", "project_id");
+        project.put("_name", "MyProject");
+        JSONArray ownedElementsProject = new JSONArray();
+        JSONObject model = new JSONObject();
+        model.put("_type", "UMLModel");
+        model.put("_id", "model_id");
+        JSONObject parentModel = new JSONObject();
+        parentModel.put("$ref", "project_id");
+        model.put("_parent", parentModel);
+        model.put("name", "MyModel");
+        JSONArray ownedElementsModel = new JSONArray();
+        ownedElementsModel.put(diagram.toJson(classes));
+        for(JSONObject UMLClass : diagram.getJsonClasses()){
+            ownedElementsModel.put(UMLClass);
+        }
+        model.put("ownedElements",ownedElementsModel);
+        ownedElementsProject.put(model);
+        project.put("ownedElements", ownedElementsProject);
+        return project;
+    }
+
 }
 
 

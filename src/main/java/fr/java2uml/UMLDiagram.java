@@ -72,6 +72,30 @@ public class UMLDiagram {
 		return diagram;
 	}
 
+	// pour le placement des classes
+	public JSONObject toJson(JSONArray classes) throws JSONException {
+		JSONObject diagram = new JSONObject();
+		diagram.put("_type", "UMLClassDiagram");
+		diagram.put("_id", "diagram_id");
+		JSONObject parentDiagram = new JSONObject();
+		parentDiagram.put("$ref", "model_id");
+		diagram.put("_parent", parentDiagram);
+		diagram.put("name", "MyDiagram");
+		diagram.put("defaultDiagram", true);
+		JSONArray ownedViewsDiagram = new JSONArray();
+		for (UMLClass umlClass : getMyClasses()){
+			ownedViewsDiagram.put(umlClass.toJsonView());
+			for(UMLAssociation umlAssociation : umlClass.getAssociations()){
+				ownedViewsDiagram.put(umlAssociation.toJsonView());
+			}
+			for(UMLSourceTargetRelation umlSourceTargetRelation : umlClass.getUmlSourceTargetRelations()){
+				ownedViewsDiagram.put(umlSourceTargetRelation.toJsonView());
+			}
+		}
+		diagram.put("ownedViews", classes);
+		return diagram;
+	}
+
 	public List<JSONObject> getJsonClasses() throws JSONException {
 		List<JSONObject> JsonClasses = new ArrayList<>();
 		for(UMLClass umlClass : getMyClasses()){
