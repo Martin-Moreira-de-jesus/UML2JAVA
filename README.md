@@ -39,6 +39,8 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 * -sg
   * Ajoute les getters et setters (désactivé par défaut)
+* -a <Type>
+  * Changer le type des arrays (doit contenir <> à la fin)
 
 #### Java2UML
 
