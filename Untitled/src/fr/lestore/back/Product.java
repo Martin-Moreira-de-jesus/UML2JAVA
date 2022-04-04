@@ -1,6 +1,6 @@
 public class Product {
 	public Integer id;
-	private Reserve[] reserve;
+	private List<Reserve> reserve;
 
 	public Integer getId() {
 		return id;
@@ -10,11 +10,11 @@ public class Product {
 		this.id = id;
 	}
 
-	public Reserve[] getReserve() {
+	public List<Reserve> getReserve() {
 		return reserve;
 	}
 
-	public void setReserve(Reserve[] reserve) {
+	public void setReserve(List<Reserve> reserve) {
 		this.reserve = reserve;
 	}
 

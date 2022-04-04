@@ -13,12 +13,20 @@ public class Translator {
     private final boolean addGettersAndSetters;
     private final String outputDirPath;
     private final String projectName;
+    private String arrayType = "default";
 
-    public Translator(String projectName, String outputDirPath, boolean addGettersAndSetters) {
+    public Translator(String projectName, String outputDirPath, boolean addGettersAndSetters, String arrayType) {
         this.projectName = projectName;
         this.addGettersAndSetters = addGettersAndSetters;
         this.outputDirPath = outputDirPath;
-    }
+        if (!arrayType.equals("")) {
+            if (!arrayType.contains("<>")) {
+                System.out.println("Invalid array type, the array type must contain <>");
+                System.exit(1);
+            }
+            this.arrayType = arrayType;
+        }
+     }
 
     public void translate() throws IOException {
         JSONArray classes = JSONDB.getInstance().fetchClasses();
@@ -43,58 +51,58 @@ public class Translator {
     private void addGettersAndSetters(JSONArray classes) {
         for (Object o : classes) {
             JSONObject umlClass = (JSONObject) o;
-            if (!umlClass.has("attributes")) continue;
-            JSONArray attributes = umlClass.getJSONArray("attributes");
+            if (!umlClass.has(UML2Java.ATTRIBUTES)) continue;
+            JSONArray attributes = umlClass.getJSONArray(UML2Java.ATTRIBUTES);
             for (Object attribute : attributes) {
                 JSONObject classAttribute = (JSONObject) attribute;
 
-                if (classAttribute.optString("isStatic").equals("true")
-                        || classAttribute.optString("visibility").equals("public")) continue;
+                if (classAttribute.optString(UML2Java.IS_STATIC).equals("true")
+                        || classAttribute.optString(UML2Java.VISIBILITY).equals("public")) continue;
 
-                if (!umlClass.has("operations")) {
-                    umlClass.put("operations", new JSONArray());
+                if (!umlClass.has(UML2Java.OPERATIONS)) {
+                    umlClass.put(UML2Java.OPERATIONS, new JSONArray());
                 }
 
                 // getter operation
                 JSONObject getter = new JSONObject();
-                getter.put("name", "get" + classAttribute.getString("name").substring(0, 1).toUpperCase() + classAttribute.getString("name").substring(1));
-                getter.put("visibility", "public");
+                getter.put(UML2Java.NAME, "get" + classAttribute.getString(UML2Java.NAME).substring(0, 1).toUpperCase() + classAttribute.getString(UML2Java.NAME).substring(1));
+                getter.put(UML2Java.VISIBILITY, "public");
 
                 // parameter that represents the return value
                 JSONObject returnParameter = new JSONObject();
-                returnParameter.put("direction", "return");
-                returnParameter.put("type", classAttribute.getString("type"));
+                returnParameter.put(UML2Java.DIRECTION, "return");
+                returnParameter.put(UML2Java.TYPE, classAttribute.getString(UML2Java.TYPE));
 
-                getter.put("parameters", new JSONArray());
-                getter.getJSONArray("parameters").put(returnParameter);
+                getter.put(UML2Java.PARAMETERS, new JSONArray());
+                getter.getJSONArray(UML2Java.PARAMETERS).put(returnParameter);
 
-                getter.put("content", "return " + classAttribute.getString("name") + ";");
+                getter.put("content", "return " + classAttribute.getString(UML2Java.NAME) + ";");
 
-                umlClass.getJSONArray("operations").put(getter);
+                umlClass.getJSONArray(UML2Java.OPERATIONS).put(getter);
 
-                if (classAttribute.optString("isReadOnly").equals("true")) continue;
+                if (classAttribute.optString(UML2Java.IS_READ_ONLY).equals("true")) continue;
 
                 JSONObject setter = new JSONObject();
 
-                setter.put("name", "set" + classAttribute.getString("name").substring(0, 1).toUpperCase()  + classAttribute.getString("name").substring(1));
-                setter.put("visibility", "public");
+                setter.put(UML2Java.NAME, "set" + classAttribute.getString(UML2Java.NAME).substring(0, 1).toUpperCase()  + classAttribute.getString(UML2Java.NAME).substring(1));
+                setter.put(UML2Java.VISIBILITY, "public");
                 setter.put("returnType", "void");
 
                 returnParameter = new JSONObject();
-                returnParameter.put("direction", "return");
-                returnParameter.put("type", "void");
+                returnParameter.put(UML2Java.DIRECTION, "return");
+                returnParameter.put(UML2Java.TYPE, "void");
 
                 JSONObject setterParameter = new JSONObject();
-                setterParameter.put("name", classAttribute.getString("name"));
-                setterParameter.put("type", classAttribute.getString("type"));
+                setterParameter.put(UML2Java.NAME, classAttribute.getString(UML2Java.NAME));
+                setterParameter.put(UML2Java.TYPE, classAttribute.getString(UML2Java.TYPE));
 
-                setter.put("parameters", new JSONArray());
-                setter.getJSONArray("parameters").put(returnParameter);
-                setter.getJSONArray("parameters").put(setterParameter);
+                setter.put(UML2Java.PARAMETERS, new JSONArray());
+                setter.getJSONArray(UML2Java.PARAMETERS).put(returnParameter);
+                setter.getJSONArray(UML2Java.PARAMETERS).put(setterParameter);
 
-                setter.put("content", "this." + classAttribute.getString("name") + " = " + classAttribute.getString("name") + ";");
+                setter.put("content", "this." + classAttribute.getString(UML2Java.NAME) + " = " + classAttribute.getString(UML2Java.NAME) + ";");
 
-                umlClass.getJSONArray("operations").put(setter);
+                umlClass.getJSONArray(UML2Java.OPERATIONS).put(setter);
             }
         }
     }
@@ -102,32 +110,23 @@ public class Translator {
     private void preProcess(JSONArray classes) {
         preProcessTemplateParameters(classes);
 
-        //preProcessAttributes(classes); // to chose other kinds of collection types
+        preProcessAttributes(classes);
     }
 
     private void preProcessAttributes(JSONArray classes) {
-        Scanner scanner = new Scanner(System.in);
-
         for (int i = 0; i < classes.length(); i++) {
-            if (!classes.getJSONObject(i).has("attributes")) continue;
-            JSONArray attributes = classes.getJSONObject(i).getJSONArray("attributes");
+            if (!classes.getJSONObject(i).has(UML2Java.ATTRIBUTES)) continue;
+            JSONArray attributes = classes.getJSONObject(i).getJSONArray(UML2Java.ATTRIBUTES);
 
             for (int j = 0; j < attributes.length(); j++) {
                 JSONObject attribute = attributes.getJSONObject(j);
-
-                if (!attribute.getString("type").contains("[]")) continue;
-
-                System.out.print("The attribute <" + attribute.getString("name") + "> from the class <"
-                        + classes.getJSONObject(i).getString("name") + "> default type was put to <"
-                        + attribute.getString("type") + ">. Type new type (leave empty to keep default type):");
-
-                String type = scanner.nextLine();
-
-                if (type.equals("")) {
-                    continue;
+                if (attribute.getString(UML2Java.TYPE).contains("[]") && !this.arrayType.equals("default")) {
+                    String type = this.arrayType;
+                    String oldType = attribute.getString(UML2Java.TYPE);
+                    oldType = oldType.replace("[]", "");
+                    type = type.substring(0, type.indexOf("<") + 1) + oldType + ">";
+                    attribute.put(UML2Java.TYPE, type);
                 }
-
-                attribute.put("type", type);
             }
         }
     }
@@ -136,19 +135,19 @@ public class Translator {
         classes.forEach(item -> {
             JSONObject umlClass = (JSONObject) item;
             if (umlClass.has("templateParameters")) {
-                String className = umlClass.getString("name") + "<";
+                String className = umlClass.getString(UML2Java.NAME) + "<";
 
                 JSONArray templateParameters = umlClass.getJSONArray("templateParameters");
                 for (int i = 0; i < templateParameters.length(); i++) {
-                    className += templateParameters.getJSONObject(i).getString("name") + ", ";
+                    className += templateParameters.getJSONObject(i).getString(UML2Java.NAME) + ", ";
                 }
 
                 className = className.substring(0, className.length() - 2);
 
                 className += ">";
 
-                umlClass.remove("name");
-                umlClass.put("name", className);
+                umlClass.remove(UML2Java.NAME);
+                umlClass.put(UML2Java.NAME, className);
             }
         });
     }
@@ -171,7 +170,7 @@ public class Translator {
             directory.mkdirs();
         }
 
-        filePath += currentClass.getString("name");
+        filePath += currentClass.getString(UML2Java.NAME);
 
         if (filePath.contains("<"))
             filePath = filePath.substring(0, filePath.indexOf("<"));
@@ -194,10 +193,10 @@ public class Translator {
         for (int i = 0; i < attributes.length(); i++) {
             JSONObject attribute = attributes.getJSONObject(i);
 
-            result += "\t" + (attribute.has("visibility") ? attribute.getString("visibility") : "public") + " "
-                    + (attribute.has("isStatic") && (Boolean) attribute.get("isStatic") ? "static " : "")
-                    + attribute.getString("type") + " "
-                    + attribute.getString("name") + ";\n";
+            result += "\t" + (attribute.has(UML2Java.VISIBILITY) ? attribute.getString(UML2Java.VISIBILITY) : "public") + " "
+                    + (attribute.has(UML2Java.IS_STATIC) && (Boolean) attribute.get(UML2Java.IS_STATIC) ? "static " : "")
+                    + attribute.getString(UML2Java.TYPE) + " "
+                    + attribute.getString(UML2Java.NAME) + ";\n";
         }
         result += '\n';
         return result;
@@ -210,11 +209,11 @@ public class Translator {
             JSONObject parameter = parameters.getJSONObject(j);
 
             try {
-                result += parameter.getString("type");
+                result += parameter.getString(UML2Java.TYPE);
             } catch (JSONException e) {
-                result += JSONDB.getInstance().getById(parameter.getJSONObject("type").getString("$ref")).getString("name");
+                result += JSONDB.getInstance().getById(parameter.getJSONObject(UML2Java.TYPE).getString(UML2Java.REF)).getString(UML2Java.NAME);
             }
-            result += " " + parameter.getString("name") + ", ";
+            result += " " + parameter.getString(UML2Java.NAME) + ", ";
         }
 
         result = result.substring(0, result.length() - 2);
@@ -233,13 +232,13 @@ public class Translator {
                 result += "\t@" + operation.getString("keyword") + "\n";
             }
 
-            result += "\t" + (operation.has("visibility") ? operation.getString("visibility") : "public") + " "
-                    + (operation.has("isAbstract") && (Boolean) operation.get("isAbstract") ? "abstract " : "")
-                    + (operation.getString("name").equals(operationType) && operationType.equals(className) ? "" : operationType + " ")
-                    + operation.getString("name") + "(";
+            result += "\t" + (operation.has(UML2Java.VISIBILITY) ? operation.getString(UML2Java.VISIBILITY) : "public") + " "
+                    + (operation.has(UML2Java.IS_ABSTRACT) && (Boolean) operation.get(UML2Java.IS_ABSTRACT) ? "abstract " : "")
+                    + (operation.getString(UML2Java.NAME).equals(operationType) && operationType.equals(className) ? "" : operationType + " ")
+                    + operation.getString(UML2Java.NAME) + "(";
 
-            if (operation.has("parameters")) {
-                result += translateParameters(operation.getJSONArray("parameters"));
+            if (operation.has(UML2Java.PARAMETERS)) {
+                result += translateParameters(operation.getJSONArray(UML2Java.PARAMETERS));
             }
 
             result += ")";
@@ -263,21 +262,21 @@ public class Translator {
 
     private String UML2Java(JSONObject umlClass) {
         String type = "class";
-        if (umlClass.getString("_type").equals("UMLInterface")) {
+        if (umlClass.getString(UML2Java.OBJECT_TYPE).equals("UMLInterface")) {
             type = "interface";
         }
         String result = "";
-        result += "public " + (umlClass.has("isAbstract") && (Boolean) umlClass.get("isAbstract")
-                ? "abstract " : "") + type + " " + umlClass.getString("name") + " ";
+        result += "public " + (umlClass.has(UML2Java.IS_ABSTRACT) && (Boolean) umlClass.get(UML2Java.IS_ABSTRACT)
+                ? "abstract " : "") + type + " " + umlClass.getString(UML2Java.NAME) + " ";
 
         if (umlClass.has("extends")) {
-            result += "extends " + umlClass.getJSONObject("extends").getString("name") + " ";
+            result += "extends " + umlClass.getJSONObject("extends").getString(UML2Java.NAME) + " ";
         }
 
-        if (umlClass.has("interfacesRealized")) {
+        if (umlClass.has(UML2Java.INTERFACES_REALIZED)) {
             result += "implements ";
-            for (Object o : umlClass.getJSONArray("interfacesRealized")) {
-                result += ((JSONObject) o).getString("name") + ", ";
+            for (Object o : umlClass.getJSONArray(UML2Java.INTERFACES_REALIZED)) {
+                result += ((JSONObject) o).getString(UML2Java.NAME) + ", ";
             }
             result = result.substring(0, result.length() - 2);
 
@@ -286,28 +285,28 @@ public class Translator {
 
         result += "{\n";
 
-        if (umlClass.has("attributes")) {
-            result += translateAttributes(umlClass.getJSONArray("attributes"));
+        if (umlClass.has(UML2Java.ATTRIBUTES)) {
+            result += translateAttributes(umlClass.getJSONArray(UML2Java.ATTRIBUTES));
         }
 
-        if (umlClass.has("operations")) {
-            result += translateOperations(umlClass.getJSONArray("operations"), type, umlClass.getString("name"));
+        if (umlClass.has(UML2Java.OPERATIONS)) {
+            result += translateOperations(umlClass.getJSONArray(UML2Java.OPERATIONS), type, umlClass.getString(UML2Java.NAME));
         }
 
         return result + "}";
     }
 
     private String getOperationType(JSONObject operation) {
-        if (operation.has("parameters")) {
-            JSONArray parameters = operation.getJSONArray("parameters");
+        if (operation.has(UML2Java.PARAMETERS)) {
+            JSONArray parameters = operation.getJSONArray(UML2Java.PARAMETERS);
             for (int i = 0; i < parameters.length(); i++) {
-                if (parameters.getJSONObject(i).has("direction")) {
+                if (parameters.getJSONObject(i).has(UML2Java.DIRECTION)) {
                     String type;
                     try {
-                        type = parameters.getJSONObject(i).getString("type");
+                        type = parameters.getJSONObject(i).getString(UML2Java.TYPE);
                     } catch (JSONException e) {
-                        String reference = parameters.getJSONObject(i).getJSONObject("type").getString("$ref");
-                        type = JSONDB.getInstance().getById(reference).getString("name");
+                        String reference = parameters.getJSONObject(i).getJSONObject(UML2Java.TYPE).getString(UML2Java.REF);
+                        type = JSONDB.getInstance().getById(reference).getString(UML2Java.NAME);
                     }
 
                     parameters.remove(i);

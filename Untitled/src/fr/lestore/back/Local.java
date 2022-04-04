@@ -1,6 +1,6 @@
 public class Local {
 	private UserStore userStore;
-	private User[] user;
+	private List<User> user;
 	private ReserveStore reserveStore;
 	private ProductStore productStore;
 
@@ -16,11 +16,11 @@ public class Local {
 		this.userStore = userStore;
 	}
 
-	public User[] getUser() {
+	public List<User> getUser() {
 		return user;
 	}
 
-	public void setUser(User[] user) {
+	public void setUser(List<User> user) {
 		this.user = user;
 	}
 

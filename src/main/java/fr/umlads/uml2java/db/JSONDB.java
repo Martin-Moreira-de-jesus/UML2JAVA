@@ -17,9 +17,9 @@ public class JSONDB {
 
         for (int i = 0; i < classes.length(); ++i) {
             JSONObject umlObject = classes.getJSONObject(i); // either a class or a package
-            if (umlObject.getString("_type").matches("UMLClass|UMLPackage|UMLInterface")) {
+            if (umlObject.getString(UML2Java.OBJECT_TYPE).matches("UMLClass|UMLPackage|UMLInterface")) {
                 // if it's a package, we add all the classes to the list of classes
-                if (umlObject.getString("_type").equals("UMLPackage")) {
+                if (umlObject.getString(UML2Java.OBJECT_TYPE).equals("UMLPackage")) {
                     JSONArray packageClasses = umlObject.getJSONArray("ownedElements");
                     // add package name to all of them
                     for (int k = 0; k < packageClasses.length(); ++k) {
@@ -71,7 +71,7 @@ public class JSONDB {
     public JSONArray getAllLinks() {
         JSONArray links = new JSONArray();
         for (Object dbObject : db) {
-            if (!((JSONObject) dbObject).getString("_type").matches("UMLClass|UMLInterface")) {
+            if (!((JSONObject) dbObject).getString(UML2Java.OBJECT_TYPE).matches("UMLClass|UMLInterface")) {
                 links.put((JSONObject) dbObject);
             }
         }
@@ -109,7 +109,7 @@ public class JSONDB {
         JSONArray result = new JSONArray();
 
         for (int i = 0; i < this.db.length(); ++i) {
-            if (this.db.getJSONObject(i).getString("_type").matches("UMLClass|UMLInterface")) {
+            if (this.db.getJSONObject(i).getString(UML2Java.OBJECT_TYPE).matches("UMLClass|UMLInterface")) {
                 result.put(this.db.getJSONObject(i));
             }
         }

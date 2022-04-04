@@ -1,5 +1,5 @@
 public class ReserveStore {
-	private Reserve[] reserve;
+	private List<Reserve> reserve;
 	private Local local;
 
 	public Reserve get(Integer id) {
@@ -10,11 +10,11 @@ public class ReserveStore {
 		//TODO
 	}
 
-	public Reserve[] getReserve() {
+	public List<Reserve> getReserve() {
 		return reserve;
 	}
 
-	public void setReserve(Reserve[] reserve) {
+	public void setReserve(List<Reserve> reserve) {
 		this.reserve = reserve;
 	}
 

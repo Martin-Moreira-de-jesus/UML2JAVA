@@ -1,6 +1,6 @@
 public class User {
 	public Integer id;
-	private Reserve[] reserve;
+	private List<Reserve> reserve;
 	private UserStore userStore;
 	private Local local;
 
@@ -12,11 +12,11 @@ public class User {
 		this.id = id;
 	}
 
-	public Reserve[] getReserve() {
+	public List<Reserve> getReserve() {
 		return reserve;
 	}
 
-	public void setReserve(Reserve[] reserve) {
+	public void setReserve(List<Reserve> reserve) {
 		this.reserve = reserve;
 	}
 

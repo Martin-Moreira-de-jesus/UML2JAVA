@@ -14,12 +14,12 @@ public class Linker {
             JSONObject source = null;
             JSONObject target = null;
 
-            if (!link.getString("_type").matches("UMLAssociation|UMLAssociationClassLink")) {
+            if (!link.getString(UML2Java.OBJECT_TYPE).matches("UMLAssociation|UMLAssociationClassLink")) {
                 source = JSONDB.getInstance().getById(link.getJSONObject("source").getString("$ref"));
                 target = JSONDB.getInstance().getById(link.getJSONObject("target").getString("$ref"));
             }
 
-            String linkType = link.getString("_type");
+            String linkType = link.getString(UML2Java.OBJECT_TYPE);
 
             switch (linkType) {
                 case "UMLGeneralization" -> {
@@ -120,7 +120,7 @@ public class Linker {
     }
 
     private void generateAssociationRelationship(JSONObject link) {
-        JSONObject classLink = JSONDB.getObjectWith("_type", "UMLAssociationClassLink");
+        JSONObject classLink = JSONDB.getObjectWith(UML2Java.OBJECT_TYPE, "UMLAssociationClassLink");
         if (classLink != null
                 && classLink.getJSONObject("associationSide").getString("$ref").equals(link.getString("_id"))) {
             addAttributeToAssociativeClass(link, classLink);

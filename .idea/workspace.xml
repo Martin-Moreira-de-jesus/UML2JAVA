@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="readme" />
+    <list default="true" id="3471d36a-c94c-41a7-92c5-e6fc794bfdb0" name="Changes" comment="executable updated">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/Local.java" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/Local.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/ReserveStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/ReserveStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled/src/fr/lestore/back/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/JSONDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/JSONDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/Linker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/Linker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/Translator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/Translator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/UML2Java.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/umlads/uml2java/db/UML2Java.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -101,9 +113,16 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fr.umlads.uml2java.Main" />
+      <option name="MAIN_CLASS_NAME" value="fr.umlads.Main" />
       <module name="UML2JAVA" />
-      <option name="PROGRAM_PARAMETERS" value="UMLTestFiles/diagram_store.mdj . -sg" />
+      <option name="PROGRAM_PARAMETERS" value="uml2java UMLTestFiles/diagram_store.mdj . -sg -a List&lt;&gt;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="UML2JAVA" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -111,10 +130,12 @@
     <list>
       <item itemvalue="Application.Benchmark" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Test" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Benchmark" />
       </list>
     </recent_temporary>
@@ -142,6 +163,7 @@
       <workItem from="1648553629645" duration="29000" />
       <workItem from="1648553694002" duration="9375000" />
       <workItem from="1648635397638" duration="5275000" />
+      <workItem from="1649074211202" duration="4644000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1643097254882</created>
@@ -304,7 +326,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648640263015</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="merge and executable updated">
+      <created>1649011457667</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1649011457668</updated>
+    </task>
+    <task id="LOCAL-00025" summary="executable updated">
+      <created>1649011517180</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1649011517180</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,7 +390,9 @@
     <MESSAGE value="readme updated" />
     <MESSAGE value="fix" />
     <MESSAGE value="readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="readme" />
+    <MESSAGE value="merge and executable updated" />
+    <MESSAGE value="executable updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="executable updated" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
