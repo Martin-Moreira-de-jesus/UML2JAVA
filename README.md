@@ -44,7 +44,7 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 #### Java2UML
 
-`java umlads.jar uml2java [source] [destination]`
+`java umlads.jar java2uml [source] [destination]`
 
 ## Téléchargement
 
