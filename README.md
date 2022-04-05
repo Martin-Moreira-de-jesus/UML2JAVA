@@ -33,7 +33,7 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 
 ### UML2Java
 
-`java umlads.jar uml2java [source] [destination] [options]`
+`java -jar umlads.jar uml2java [source] [destination] [options]`
 
 #### Options
 
@@ -42,7 +42,7 @@ Cet executable destiné à être éxécuté avec des fichiers .mdj utilisé par 
 * -a <Type>
   * Changer le type des arrays (doit contenir <> à la fin)
 
-#### Java2UML
+### Java2UML
 
 `java -jar umlads.jar java2uml [source] [destination]`
 
