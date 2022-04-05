@@ -115,7 +115,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.umlads.Main" />
       <module name="UML2JAVA" />
-      <option name="PROGRAM_PARAMETERS" value="uml2java UMLTestFiles/diagram_store.mdj . -sg -a List&lt;&gt;" />
+      <option name="PROGRAM_PARAMETERS" value="java2uml C:\Users\marga\JavaTestFolder\src\fr C:\Users\marga\UMLTestFolder" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
