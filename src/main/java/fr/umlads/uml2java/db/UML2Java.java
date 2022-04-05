@@ -33,7 +33,7 @@ public class UML2Java {
     private final String outputDirPath;
     private final boolean generateGettersAndSetters;
     private final String projectName;
-    private String arrayType = "[]";
+    private String arrayType = "";
 
     public UML2Java(String umlFilePath,
                     String outputDirPath,
